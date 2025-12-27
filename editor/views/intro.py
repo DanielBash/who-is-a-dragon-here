@@ -1,5 +1,5 @@
-"""VIEW: Intro
- - Flexes our development team"""
+"""VIEW: Вступление
+ - Демонстрация команды разработчиков"""
 
 import math
 import time
@@ -15,18 +15,18 @@ class Main(arcade.View):
     def __init__(self, config):
         super().__init__()
 
-        # initial configuration
+        # Начальная конфигурация
         self.conf = config
         self.scaling = self.width / 800
 
-        # SCENE SETTINGS
+        # НАСТРОЙКИ СЦЕНЫ
         self.background_color = arcade.color.Color(33, 23, 41)
         self.jump_time = 3.5
         self.title_time = 3
         self.wait_time = 2
         self.filter_on = False
 
-        # sprites
+        # Спрайты
         self.credits_sprite = arcade.Sprite(config.assets.texture('credits'),
                                             scale=self.scaling)
         self.credits_sprite.center_y = self.height // 2
@@ -42,7 +42,7 @@ class Main(arcade.View):
         self.text_list.append(self.credits_sprite)
         self.text_list.append(self.title_sprite)
 
-        # filters
+        # Фильтры
         self.filter_options = {
             'resolution_down_scale': 4.0,
             'hard_scan': -8.0,
@@ -52,8 +52,8 @@ class Main(arcade.View):
             'mask_light': 1.5
         }
         self.filter = CRTFilter(int(self.width), int(self.height),
-                                **self.filter_options)
-        # tech info
+                                **self.filter_options)  # FIXME: Некоректная работа шейдера
+        # Техническая информация
         self.start_time = time.time()
         self.danger_played = False
         self.on_resize(int(self.width), int(self.height))
@@ -63,6 +63,7 @@ class Main(arcade.View):
         self.start_time = time.time()
 
     def on_draw(self):
+        # -- Отрисовка с фильтром, если включен
         if self.filter_on:
             self.filter.use()
             self.filter.clear()
@@ -81,12 +82,13 @@ class Main(arcade.View):
         self.text_list.draw(pixelated=True)
 
     def on_update(self, delta_time: float):
+        # - Параметры шейдера
         self.shadertoy.program['color'] = self.background_color.normalized[:3]
         self.shadertoy.program['time'] = int(time.time() * 10000)
         self.shadertoy.program['mouse'] = self.window.mouse['x'], self.window.mouse['y']
         time_passed = time.time() - self.start_time
         self.credits_sprite.angle = self.title_sprite.angle = math.sin(time_passed * 3) * 3
-
+        # - Логика перехода между экранами
         if time_passed > self.jump_time + self.title_time + self.wait_time:
             next_view = main_menu(self.conf)
             self.window.show_view(next_view)
@@ -104,6 +106,7 @@ class Main(arcade.View):
                 self.danger_played = True
                 arcade.play_sound(self.conf.assets.effect('air_punch'))
 
+        # - Анимация искожения
         self.credits_sprite.center_y = self.title_sprite.center_y = self.height // 2
         self.credits_sprite.center_x = self.title_sprite.center_x = self.width // 2
         self.credits_sprite.scale = self.scaling + math.sin(time_passed) * self.scaling * 0.5

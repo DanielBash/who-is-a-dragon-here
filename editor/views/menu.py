@@ -1,5 +1,5 @@
-"""VIEW: Menu
- - Provides friendly UI for settings and saves management"""
+"""VIEW: Главное меню
+ - Основной интерфейс меню с настройками и управлением сохранениями"""
 
 import math
 import time
@@ -12,19 +12,18 @@ from arcade.experimental import Shadertoy
 from pyglet.math import Vec2
 
 
-
 class Main(arcade.View):
     def __init__(self, config):
         super().__init__()
 
-        # initial configuration
+        # Начальная конфигурация
         self.conf = config
         self.scaling = self.width / 800
 
-        # SCENE SETTINGS
+        # НАСТРОЙКИ СЦЕНЫ
         self.background_color = arcade.color.Color(33, 23, 41)
 
-        # sprites
+        # Спрайты
         self.ui = arcade.gui.UIManager()
 
         self.layout = arcade.gui.UIAnchorLayout()
@@ -55,7 +54,7 @@ class Main(arcade.View):
         self.ui.add(self.layout)
         self.on_resize(int(self.width), int(self.height))
 
-    # -- handle drawing
+    # -- Отрисовка
     def on_draw(self):
         self.draw_all()
 
@@ -64,14 +63,13 @@ class Main(arcade.View):
         self.shadertoy.render()
         self.ui.draw()
 
-    # -- handle updating
+    # -- Обновление состояния
     def on_update(self, delta_time: float):
         self.shadertoy.program['color'] = self.background_color.normalized[:3]
         self.shadertoy.program['time'] = int(time.time() * 10000)
         self.shadertoy.program['mouse'] = self.window.mouse['x'], self.window.mouse['y']
 
-    # -- handle user input
-    # buttons
+    # -- Обработка ввода пользователя
     def on_key_press(self, key, key_modifiers):
         if key == self.conf.KEYS['fullscreen']:
             self.window.set_fullscreen(not self.window.fullscreen)
@@ -85,7 +83,6 @@ class Main(arcade.View):
         window_size = self.window.get_size()
         self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
 
-    # gui
     def exit_button_click(self, event):
         arcade.exit()
 
@@ -95,7 +92,7 @@ class Main(arcade.View):
         next_view = play_view(self.conf)
         self.window.show_view(next_view)
 
-    # -- handle system events
+    # -- Системные события
     def on_show_view(self):
         self.ui.enable()
         self.conf.music.ensure_playing('main_menu')

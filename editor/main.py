@@ -1,5 +1,5 @@
-"""FILE: Main
- - Run game instance"""
+"""FILE: Основной файл
+ - Запуск игры"""
 
 import arcade
 import pyglet

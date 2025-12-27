@@ -1,5 +1,6 @@
-"""FILE: Config
- - Global data management"""
+"""FILE: Конфигурация
+ - Управление глобальными данными и настройками приложения"""
+
 import gzip
 import json
 import os
@@ -19,12 +20,12 @@ class PathConfig:
     def __init__(self, data_file: Path, asset_folder: Path, shader_folder: Path):
         self.supported_ext = ['.png', '.jpg', '.jpeg', '.ico', '.json', '.mp3', '.wav']
 
-        # roots
+        # Корневые директории
         self.data_file = data_file
         self.asset_folder = asset_folder
         self.shader_folder = shader_folder
 
-        # all shortcut endpoints
+        # Ярлыки для быстрого доступа к ресурсам
         self.shortcuts = {
             'icon': self.asset_folder / Path('images/icons'),
             'effect': self.asset_folder / Path('sounds/effects'),
@@ -37,11 +38,11 @@ class PathConfig:
         self.music_folder = self.asset_folder / Path('sounds/music')
         self.sound_effects_folder = self.asset_folder / Path('sounds/effects')
 
-        # build filesystem reconfiguration
+        # реконфигурация файловой системы сборки
         if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
             os.chdir(sys._MEIPASS)
 
-    # -- base method
+    # -- Базовый метод поиска файла
     def get(self, folder, name) -> Optional[Path]:
         path = folder / Path(name)
 
@@ -53,11 +54,12 @@ class PathConfig:
 
         return None
 
-    # -- paths shortcuts
+    # -- Сокращенные обращения
     def short(self, short, name) -> Path:
         return self.get(self.shortcuts[short], name)
 
 
+# -- Загрузка различных элементов
 class AssetsConfig:
     def __init__(self, paths: PathConfig):
         self.paths = paths
@@ -95,6 +97,7 @@ class DataConfig:
             self._write_gz({})
 
     def load_data(self):
+        # -- Загрузка данных из файла
         self.prepare()
 
         try:
@@ -108,6 +111,7 @@ class DataConfig:
             return
 
         try:
+            # - Резервная загрузка из несжатого файла
             with self.paths.data_file.open("r", encoding="utf-8") as f:
                 self.data = json.load(f)
 
@@ -120,6 +124,7 @@ class DataConfig:
         self._write_gz(self.data)
 
     def _write_gz(self, data: dict):
+        # - Запись с сжатием
         tmp = self.paths.data_file.with_suffix(".tmp")
 
         with gzip.open(tmp, "wt", encoding="utf-8", compresslevel=9) as f:
@@ -133,6 +138,7 @@ class DataConfig:
         tmp.replace(self.paths.data_file)
 
 
+# -- Управление воспроизведением музыки
 class MusicConfig:
     def __init__(self, assets: AssetsConfig):
         self.assets = assets
@@ -154,7 +160,7 @@ class MusicConfig:
 
 @dataclass
 class Config:
-    # -- constants
+    # -- КОНСТАНТЫ
 
     # window params
     WINDOW_WIDTH = 600
@@ -167,15 +173,15 @@ class Config:
 
     WINDOW_ICON = 'window_icon'
 
-    # view management
+    # Управление видами
     LAUNCH_VIEW = menu.Main
 
-    # paths
+    # Пути
     DATA_FILE = Path('saves/save.json')
     ASSETS_FOLDER = Path('assets')
     SHADER_FOLDER = Path('shaders')
 
-    # controls
+    # Управление
     KEYS = {'fullscreen': arcade.key.F11,
             'move_up': arcade.key.W,
             'move_down': arcade.key.S,
@@ -185,10 +191,10 @@ class Config:
             'zoom_out': arcade.key.DOWN,
             'action': arcade.key.Z}
 
-    # general debug option
+    # Общие настройки отладки
     DEBUG = True
 
-    # -- dynamic config modules
+    # - ДИНАМИЧЕСКИЕ КОНФИГУРАЦИОННЫЕ МОДУЛИ
     paths: PathConfig = PathConfig(DATA_FILE, ASSETS_FOLDER, SHADER_FOLDER)
     assets: AssetsConfig = AssetsConfig(paths)
     data: DataConfig = DataConfig(paths)

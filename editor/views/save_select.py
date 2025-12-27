@@ -1,5 +1,5 @@
-"""VIEW: Menu
- - Provides friendly UI for settings and saves management"""
+"""VIEW: Выбор сохранения
+ - Интерфейс для выбора существующих миров или создания новых"""
 
 import math
 import time
@@ -18,14 +18,14 @@ class Main(arcade.View):
     def __init__(self, config):
         super().__init__()
 
-        # initial configuration
+        # Начальная конфигурация
         self.conf = config
         self.scaling = self.width / 800
 
-        # SCENE SETTINGS
+        # НАСТРОЙКИ СЦЕНЫ
         self.background_color = arcade.color.Color(33, 23, 41)
 
-        # sprites
+        # Спрайты
         self.ui = arcade.gui.UIManager()
 
         self.layout = arcade.gui.UIAnchorLayout()
@@ -47,6 +47,7 @@ class Main(arcade.View):
     def setup(self):
         data = config.Config.data
 
+        # - Создание кнопок для каждого существующего мира
         if 'worlds' in data.data:
             c = 0
             for world in data.data['worlds']:
@@ -74,7 +75,7 @@ class Main(arcade.View):
         self.button_column.add(self.exit_button)
         self.ui.add(self.layout)
 
-    # -- handle drawing
+    # -- Отрисовка
     def on_draw(self):
         self.draw_all()
 
@@ -83,13 +84,13 @@ class Main(arcade.View):
         self.shadertoy.render()
         self.ui.draw()
 
-    # -- handle updating
+    # -- Обновление состояния
     def on_update(self, delta_time: float):
+        # - Параметры шейдера
         self.shadertoy.program['color'] = self.background_color.normalized[:3]
         self.shadertoy.program['time'] = int(time.time() * 10000)
         self.shadertoy.program['mouse'] = self.window.mouse['x'], self.window.mouse['y']
-    # -- handle user input
-    # buttons
+    # -- Обработка ввода пользователя
     def on_key_press(self, key, key_modifiers):
         if key == self.conf.KEYS['fullscreen']:
             self.window.set_fullscreen(not self.window.fullscreen)
@@ -104,7 +105,7 @@ class Main(arcade.View):
         window_size = self.window.get_size()
         self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
 
-    # gui
+    # -- Обработчики интерфейса
     def exit_button_click(self, event):
         from .menu import Main as next_view
         arcade.play_sound(self.conf.assets.effect('button_click'))
@@ -119,7 +120,7 @@ class Main(arcade.View):
         self.window.show_view(prev_view)
         return
 
-    # -- handle system events
+    # -- Системные события
     def on_show_view(self):
         self.ui.enable()
         self.conf.music.ensure_playing('main_menu')
@@ -128,7 +129,7 @@ class Main(arcade.View):
     def on_hide_view(self):
         self.ui.disable()
 
-    # -- utils
+    # -- Утилиты
     def load_save(self, data):
         self.conf.current_world = data
 

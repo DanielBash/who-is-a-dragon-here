@@ -1,5 +1,5 @@
-"""VIEW: Menu
- - Provides friendly UI for settings and saves management"""
+"""VIEW: Создание нового мира
+ - Интерфейс для создания нового мира с удобными настройками"""
 
 import math
 import random
@@ -19,14 +19,14 @@ class Main(arcade.View):
     def __init__(self, config):
         super().__init__()
 
-        # initial configuration
+        # Начальная конфигурация
         self.conf = config
         self.scaling = self.width / 800
 
-        # SCENE SETTINGS
+        # НАСТРОЙКИ СЦЕНЫ
         self.background_color = arcade.color.Color(33, 23, 41)
 
-        # sprites
+        # Спрайты
         self.ui = arcade.gui.UIManager()
 
         self.layout = arcade.gui.UIAnchorLayout()
@@ -73,7 +73,7 @@ class Main(arcade.View):
         self.ui.add(self.layout)
         self.on_resize(int(self.width), int(self.height))
 
-    # -- handle drawing
+    # -- Отрисовка
     def on_draw(self):
         self.draw_all()
 
@@ -82,14 +82,14 @@ class Main(arcade.View):
         self.shadertoy.render()
         self.ui.draw()
 
-    # -- handle updating
+    # -- Обновление состояний
     def on_update(self, delta_time: float):
+        # - Передача параметров в шейдер
         self.shadertoy.program['color'] = self.background_color.normalized[:3]
         self.shadertoy.program['time'] = int(time.time() * 10000)
         self.shadertoy.program['mouse'] = self.window.mouse['x'], self.window.mouse['y']
 
-    # -- handle user input
-    # buttons
+    # -- Обработка ввода пользователя
     def on_key_press(self, key, key_modifiers):
         if key == self.conf.KEYS['fullscreen']:
             self.window.set_fullscreen(not self.window.fullscreen)
@@ -103,7 +103,7 @@ class Main(arcade.View):
         window_size = self.window.get_size()
         self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
 
-    # gui
+    # -- Обработчики интерфейса
     def exit_button_click(self, event):
         from .save_select import Main as next_view
         arcade.play_sound(self.conf.assets.effect('button_click'))
@@ -135,8 +135,8 @@ class Main(arcade.View):
             'name': self.name_edit.text,
             'width': w,
             'height': h,
-            'data': [[None] * w for _ in range(h)],
-            'floor': [[{'tex': 'grass_tile1'}] * w for _ in range(h)],
+            'data': [[None] * w for _ in range(h)],  # Объекты уровня
+            'floor': [[{'tex': 'grass_tile1'}] * w for _ in range(h)],  # Текстуры пола
         })
         self.conf.data.save_data()
         self.conf.current_world = len(self.conf.data.data['worlds']) - 1
@@ -145,7 +145,7 @@ class Main(arcade.View):
         self.window.show_view(prev_view)
         return
 
-    # -- handle system events
+    # -- Системные события
     def on_show_view(self):
         self.ui.enable()
         self.conf.music.ensure_playing('main_menu')
@@ -154,6 +154,6 @@ class Main(arcade.View):
     def on_hide_view(self):
         self.ui.disable()
 
-    # -- utils
+    # -- Утилиты
     def create_save(self, data):
         print('worlds loaded')
