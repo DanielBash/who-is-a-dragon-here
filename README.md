@@ -7,4 +7,4 @@
 **Игра, настойчиво рекомендующая читать пользовательские соглашения, предостережения на батарейках и, особенно, вывески на дверях неевклидовых пещер.**
 
 ## Статистика проекта
-![image](https://worm.ibashlhr.beget.tech/images/repo?repo=https://github.com/DanielBash/project-stats)
+![image](https://worm.ibashlhr.beget.tech/images/repo?repo=https://github.com/DanielBash/who-is-a-dragon-here)
