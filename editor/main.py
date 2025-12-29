@@ -27,9 +27,11 @@ def main():
     window.set_icon(conf.assets.icon(conf.WINDOW_ICON))
     if conf.DEBUG:
         arcade.enable_timings()
+    conf.logger.log(f'Успешная инициализация DEBUG={conf.DEBUG}')
     arcade.run()
 
 
 # - запуск проекта
 if __name__ == "__main__":
     main()
+    conf.logger.log('Выключение')
