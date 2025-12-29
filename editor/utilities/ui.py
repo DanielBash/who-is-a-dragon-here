@@ -39,6 +39,7 @@ class DebugPanel(arcade.gui.UIManager):
 
         self.vis = True
         self.exec_globals = {}
+        self.toggle_menu(0)
 
     def on_update(self, dt):
         self.text_area.text = self.logger.get_log()
