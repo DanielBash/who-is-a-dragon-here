@@ -1,10 +1,13 @@
 """СКРИПТ: главный файл
  - Содержит триггеры для запуска приложения
  - Запустить его, чтобы начать"""
+import inspect
+from pathlib import Path
 
 # -- импорт модулей
 import arcade
 import pyglet
+from arcade import View
 
 from config import Config as conf
 
@@ -13,6 +16,10 @@ from config import Config as conf
 class Window(arcade.Window):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    def show_view(self, new_view: View):
+        conf.logger.log(f'Переключение на сцену {Path(inspect.getfile(new_view.__class__)).stem}')
+        super().show_view(new_view)
 
 
 # - функция инициализации главного окна
