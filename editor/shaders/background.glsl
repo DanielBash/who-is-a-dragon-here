@@ -1,121 +1,137 @@
-uniform vec3 color;      // star tint
-uniform int time;        // milliseconds
-uniform vec2 mouse;      // mouse position in pixels
+uniform int time;
 
 // ============================================================
-// SETTINGS (tweak here)
+// SETTINGS
 // ============================================================
 
-const float STAR_DENSITY        = 50.0;
-const float STAR_PROBABILITY   = 0.72;
-
-const float STAR_SIZE_MIN      = 0.002;
-const float STAR_SIZE_MAX      = 0.005;
-
-const float MOUSE_RADIUS       = 1.0;    // influence radius (uv space)
-const float MOUSE_STRENGTH     = 0.038;  // base attraction strength
-
-const float DEPTH_MIN          = 0.35;
-const float DEPTH_MAX          = 1.0;
-
-const float BACKGROUND_INTENS  = 0.015;
-const float BACKGROUND_WAVE    = 0.002;
+const float STAR_DENSITY   = 60.0;
+const float STAR_SHARPNESS = 120.0;
+const float NEBULA_SCALE   = 2.5;
+const float SCROLL_SPEED  = 0.05;
 
 // ============================================================
+// HASH
+// ============================================================
 
-// ---------- hash ----------
-float hash21(vec2 p) {
-    p = fract(p * vec2(234.34, 851.73));
-    p += dot(p, p + 34.45);
+float hash(vec2 p) {
+    p = fract(p * vec2(127.1, 311.7));
+    p += dot(p, p + 34.5);
     return fract(p.x * p.y);
 }
 
-// ---------- smooth radial glow ----------
-float radialGlow(vec2 p, vec2 c, float r) {
-    float d = length(p - c);
-    float x = d / r;
-    return exp(-x * x * 4.0);
+// ============================================================
+// NOISE
+// ============================================================
+
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+
+    float a = hash(i);
+    float b = hash(i + vec2(1.0, 0.0));
+    float c = hash(i + vec2(0.0, 1.0));
+    float d = hash(i + vec2(1.0, 1.0));
+
+    vec2 u = f * f * (3.0 - 2.0 * f);
+
+    return mix(a, b, u.x) +
+           (c - a) * u.y * (1.0 - u.x) +
+           (d - b) * u.x * u.y;
 }
 
-void mainImage(out vec4 fragColor, in vec2 fragCoord)
-{
-    // ---------- normalized coords ----------
+// ============================================================
+// FBM
+// ============================================================
+
+float fbm(vec2 p) {
+    float v = 0.0;
+    float a = 0.5;
+    for (int i = 0; i < 5; i++) {
+        v += a * noise(p);
+        p *= 2.0;
+        a *= 0.5;
+    }
+    return v;
+}
+
+// ============================================================
+// DOMAIN ROTATION
+// ============================================================
+
+mat2 rotate(float a) {
+    float s = sin(a);
+    float c = cos(a);
+    return mat2(c, -s, s, c);
+}
+
+// ============================================================
+// STAR SHAPE
+// ============================================================
+
+float star(vec2 uv, float seed) {
+    float d = length(uv);
+    float core = exp(-d * d * STAR_SHARPNESS);
+
+    float spike = abs(uv.x * uv.y);
+    spike = exp(-spike * 80.0);
+
+    return core + spike * seed * 0.8;
+}
+
+// ============================================================
+// MAIN
+// ============================================================
+
+void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+
     vec2 uv = fragCoord / iResolution.xy;
     uv = uv * 2.0 - 1.0;
     uv.x *= iResolution.x / iResolution.y;
 
-    // ---------- mouse (same space as uv) ----------
-    vec2 m = mouse / iResolution.xy;
-    m = m * 2.0 - 1.0;
-    m.x *= iResolution.x / iResolution.y;
+    float t = float(time) * 0.001 * SCROLL_SPEED;
 
-    float t = float(time) * 0.00005;
+    vec2 warpedUV = rotate(0.37) * uv;
+    warpedUV += 0.15 * vec2(
+        fbm(uv * 1.7 + t),
+        fbm(uv * 1.3 - t)
+    );
 
-    // ---------- background ----------
-    vec3 col = color * BACKGROUND_INTENS;
-    col += vec3(BACKGROUND_WAVE) *
-           sin(vec3(1.2, 1.7, 2.1) * t + uv.xyx * 3.0);
+    vec2 spaceUV = warpedUV * STAR_DENSITY +
+                   vec2(t * 0.7, t * 1.1);
 
-    // ---------- star field ----------
-    vec2 grid = uv * STAR_DENSITY;
-    vec2 cell = floor(grid);
+    vec2 cell = floor(spaceUV);
+    vec2 local = fract(spaceUV) - 0.5;
 
-    for (int y = -1; y <= 1; y++) {
-        for (int x = -1; x <= 1; x++) {
+    vec2 jitter = vec2(
+        hash(cell + 5.1),
+        hash(cell + 9.7)
+    ) - 0.5;
 
-            vec2 id = cell + vec2(x, y);
-            float rnd = hash21(id);
+    local += jitter * 0.35;
 
-            if (rnd < STAR_PROBABILITY) continue;
+    float rnd = hash(cell);
 
-            // base position
-            vec2 pos = id + vec2(
-                hash21(id + 13.1),
-                hash21(id + 91.7)
-            );
-            pos /= STAR_DENSITY;
+    vec3 col = vec3(0.0);
 
-            // depth
-            float depth = mix(DEPTH_MIN, DEPTH_MAX, hash21(id + 7.7));
+    if (rnd > 0.995) {
 
-            // size
-            float size = mix(STAR_SIZE_MIN, STAR_SIZE_MAX, rnd) * depth;
+        float size = mix(0.6, 1.6, hash(cell + 3.3));
+        float s = star(local * size, rnd);
 
-            // ---------- mouse attraction (size-aware) ----------
-            vec2 toMouse = m - pos;
-            float dist = length(toMouse);
+        vec3 starCol = mix(
+            vec3(0.65, 0.75, 1.0),
+            vec3(1.0, 0.85, 0.6),
+            hash(cell + 11.1)
+        );
 
-            float falloff = smoothstep(MOUSE_RADIUS, 0.0, dist);
-
-            // Bigger stars = heavier = less pull
-            float mass = size / STAR_SIZE_MAX;   // 0..1
-            float inertia = 1.0 - mass;          // big → small movement
-
-            pos += normalize(toMouse) *
-                   falloff *
-                   MOUSE_STRENGTH *
-                   depth *
-                   inertia;
-
-            // twinkle
-            float tw = sin(t * (1.0 + rnd * 2.0) + rnd * 10.0);
-            tw = 0.6 + 0.4 * tw;
-
-            // glow
-            float g = radialGlow(uv, pos, size) * tw;
-
-            // color variation
-            vec3 starCol = mix(
-                vec3(1.0, 0.95, 0.85),
-                vec3(0.75, 0.85, 1.0),
-                rnd
-            );
-
-            col += starCol * g * depth * 1.2;
-        }
+        col += starCol * s * 3.0;
     }
 
-    // ---------- tonemap ----------
+    float nebula = fbm(warpedUV * NEBULA_SCALE + vec2(0.0, t * 0.4));
+    vec3 nebulaCol = vec3(0.15, 0.2, 0.35) * pow(nebula, 2.6);
+
+    col += nebulaCol;
+
     col = 1.0 - exp(-col);
     col = pow(col, vec3(0.9));
 

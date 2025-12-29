@@ -1,17 +1,21 @@
-"""FILE: Основной файл
- - Запуск игры"""
+"""СКРИПТ: главный файл
+ - Содержит триггеры для запуска приложения
+ - Запустить его, чтобы начать"""
 
+# -- импорт модулей
 import arcade
 import pyglet
 
 from config import Config as conf
 
 
+# -- класс окна
 class Window(arcade.Window):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
 
+# - функция инициализации главного окна
 def main():
     window = Window(conf.WINDOW_WIDTH,
                     conf.WINDOW_HEIGHT,
@@ -26,5 +30,6 @@ def main():
     arcade.run()
 
 
+# - запуск проекта
 if __name__ == "__main__":
     main()

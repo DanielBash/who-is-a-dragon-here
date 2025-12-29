@@ -1,6 +1,9 @@
-"""VIEW: Главное меню
- - Основной интерфейс меню с настройками и управлением сохранениями"""
+"""СЦЕНА: Главное меню
+ - Основной интерфейс меню
+ - Выход из приложения
+ - Запуск"""
 
+# -- импорт модулей
 import math
 import time
 from math import sin
@@ -12,18 +15,19 @@ from arcade.experimental import Shadertoy
 from pyglet.math import Vec2
 
 
+# -- класс сцены
 class Main(arcade.View):
+    # -- инициализация
     def __init__(self, config):
         super().__init__()
 
-        # Начальная конфигурация
         self.conf = config
         self.scaling = self.width / 800
 
-        # НАСТРОЙКИ СЦЕНЫ
+        # настройки сцены
         self.background_color = arcade.color.Color(33, 23, 41)
 
-        # Спрайты
+        # настройка интерфейса
         self.ui = arcade.gui.UIManager()
 
         self.layout = arcade.gui.UIAnchorLayout()
@@ -52,9 +56,16 @@ class Main(arcade.View):
         self.layout.add(self.button_column)
 
         self.ui.add(self.layout)
+
+        if self.conf.DEBUG:
+            self.panel = self.conf.utils.ui.DebugPanel(self.conf.logger)
+
+        self.shadertoy = None
+
+        # вызов on_resize, для финальной инициализации
         self.on_resize(int(self.width), int(self.height))
 
-    # -- Отрисовка
+    # -- отрисовка
     def on_draw(self):
         self.draw_all()
 
@@ -63,25 +74,17 @@ class Main(arcade.View):
         self.shadertoy.render()
         self.ui.draw()
 
-    # -- Обновление состояния
-    def on_update(self, delta_time: float):
-        self.shadertoy.program['color'] = self.background_color.normalized[:3]
-        self.shadertoy.program['time'] = int(time.time() * 10000)
-        self.shadertoy.program['mouse'] = self.window.mouse['x'], self.window.mouse['y']
+        if self.conf.DEBUG:
+            self.panel.draw()
 
-    # -- Обработка ввода пользователя
+    # -- обновление состояния
+    def on_update(self, delta_time: float):
+        self.shadertoy.program['time'] = int(time.time() * 10000)
+
+    # -- обработка ввода пользователя
     def on_key_press(self, key, key_modifiers):
         if key == self.conf.KEYS['fullscreen']:
             self.window.set_fullscreen(not self.window.fullscreen)
-
-    def on_resize(self, width: int, height: int):
-        super().on_resize(width, height)
-        self.scaling = min(width / 800, height / 600)
-        self.ui.camera.position = self.width / 2, self.height / 2
-        self.ui.camera.zoom = self.scaling
-        shader_file_path = self.conf.SHADER_FOLDER / 'background.glsl'
-        window_size = self.window.get_size()
-        self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
 
     def exit_button_click(self, event):
         arcade.exit()
@@ -96,7 +99,23 @@ class Main(arcade.View):
     def on_show_view(self):
         self.ui.enable()
         self.conf.music.ensure_playing('main_menu')
+
+        if self.conf.DEBUG:
+            self.panel.enable()
+
         self.on_resize(int(self.width), int(self.height))
 
     def on_hide_view(self):
         self.ui.disable()
+
+        if self.conf.DEBUG:
+            self.panel.disable()
+
+    def on_resize(self, width: int, height: int):
+        super().on_resize(width, height)
+        self.scaling = min(width / 800, height / 600)
+        self.ui.camera.position = self.width / 2, self.height / 2
+        self.ui.camera.zoom = self.scaling
+        shader_file_path = self.conf.SHADER_FOLDER / 'background.glsl'
+        window_size = self.window.get_size()
+        self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)

@@ -1,6 +1,9 @@
-"""FILE: Конфигурация
- - Управление глобальными данными и настройками приложения"""
+"""СКРИПТ: Настройки/Конфигурация приложения
+ - Управление глобальными переменными
+ - Объявление констант
+ - Менеджмент асетов и других ресурсов"""
 
+# -- импорт модулей
 import gzip
 import json
 import os
@@ -13,19 +16,22 @@ from typing import Optional
 import arcade
 import pyglet
 
-from views import intro, menu
+from views import menu
+import utilities as u
 
 
+# === КЛАССЫ БЫСТРОГО ДОСТУПА К РЕСУРСАМ ===
+# -- менеджер путей
 class PathConfig:
     def __init__(self, data_file: Path, asset_folder: Path, shader_folder: Path):
         self.supported_ext = ['.png', '.jpg', '.jpeg', '.ico', '.json', '.mp3', '.wav']
 
-        # Корневые директории
+        # основные пути
         self.data_file = data_file
         self.asset_folder = asset_folder
         self.shader_folder = shader_folder
 
-        # Ярлыки для быстрого доступа к ресурсам
+        # ярлыки обращения к ресурсам
         self.shortcuts = {
             'icon': self.asset_folder / Path('images/icons'),
             'effect': self.asset_folder / Path('sounds/effects'),
@@ -33,17 +39,12 @@ class PathConfig:
             'texture': self.asset_folder / Path('images/textures'),
         }
 
-        self.icon_folder = self.asset_folder / Path('images/icons')
-
-        self.music_folder = self.asset_folder / Path('sounds/music')
-        self.sound_effects_folder = self.asset_folder / Path('sounds/effects')
-
-        # реконфигурация файловой системы сборки
+        # определение системы сборки
         if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
             os.chdir(sys._MEIPASS)
 
-    # -- Базовый метод поиска файла
-    def get(self, folder, name) -> Optional[Path]:
+    # - метод поиска файла в директории
+    def get(self, folder: Path, name: str | Path) -> Optional[Path]:
         path = folder / Path(name)
 
         if not path.exists():
@@ -54,50 +55,55 @@ class PathConfig:
 
         return None
 
-    # -- Сокращенные обращения
-    def short(self, short, name) -> Path:
+    # - доступ к ярлыкам
+    def short(self, short: str, name: str | Path) -> Path:
         return self.get(self.shortcuts[short], name)
 
 
-# -- Загрузка различных элементов
+# -- подгрузка асетов
 class AssetsConfig:
     def __init__(self, paths: PathConfig):
         self.paths = paths
 
+    # - получение иконки
     def icon(self, name: str) -> pyglet.image.AbstractImage:
         image_path = self.paths.short('icon', name)
 
         return pyglet.image.load(str(image_path))
 
+    # - получение музыки
     def music(self, name: str, streaming: bool = True) -> arcade.Sound:
         music_path = self.paths.short('music', name)
 
         return arcade.load_sound(music_path, streaming=streaming)
 
+    # - получение звукового эффекта
     def effect(self, name: str, streaming: bool = True) -> arcade.Sound:
         music_path = self.paths.short('effect', name)
 
         return arcade.load_sound(music_path, streaming=streaming)
 
+    # - получение текстуры
     def texture(self, name: str) -> arcade.Texture:
         return arcade.load_texture(self.paths.short('texture', name))
 
 
-
+# -- обработка сохранений
 class DataConfig:
     def __init__(self, paths):
         self.paths = paths
         self.data = {}
         self.load_data()
 
+    # - создание целевой директории
     def prepare(self):
         self.paths.data_file.parent.mkdir(parents=True, exist_ok=True)
 
         if not self.paths.data_file.exists():
-            self._write_gz({})
+            self.save_data()
 
+    # - загрузка данных, распаковка
     def load_data(self):
-        # -- Загрузка данных из файла
         self.prepare()
 
         try:
@@ -111,7 +117,6 @@ class DataConfig:
             return
 
         try:
-            # - Резервная загрузка из несжатого файла
             with self.paths.data_file.open("r", encoding="utf-8") as f:
                 self.data = json.load(f)
 
@@ -120,16 +125,13 @@ class DataConfig:
         except Exception:
             self.data = {}
 
+    # - сохранение данных
     def save_data(self):
-        self._write_gz(self.data)
-
-    def _write_gz(self, data: dict):
-        # - Запись с сжатием
         tmp = self.paths.data_file.with_suffix(".tmp")
 
         with gzip.open(tmp, "wt", encoding="utf-8", compresslevel=9) as f:
             json.dump(
-                data,
+                self.data,
                 f,
                 ensure_ascii=False,
                 separators=(",", ":"),
@@ -138,7 +140,7 @@ class DataConfig:
         tmp.replace(self.paths.data_file)
 
 
-# -- Управление воспроизведением музыки
+# -- управление воспроизведением музыки
 class MusicConfig:
     def __init__(self, assets: AssetsConfig):
         self.assets = assets
@@ -146,6 +148,7 @@ class MusicConfig:
         self.playing_name = ''
         self.music = None
 
+    # -- выключение предыдущей музыки, если нужна другая, запуск следующей
     def ensure_playing(self, name, loop=True):
         if self.playing_name == name:
             return
@@ -154,15 +157,17 @@ class MusicConfig:
         self.playing_name = name
         self.music = arcade.play_sound(self.assets.music(name), loop=loop)
 
+    # -- звуковые эффекты
     def play_sound(self, name):
-        arcade.play_sound(self.assets.effect(name))
+        arcade.play_sound(self.assets.effect(name, streaming=False))
 
 
+# === ХРАНЕНИЕ ДАННЫХ ===
+# -- класс настроек
 @dataclass
 class Config:
-    # -- КОНСТАНТЫ
-
-    # window params
+    # - константы
+    # параметры окна
     WINDOW_WIDTH = 600
     WINDOW_HEIGHT = 400
     WINDOW_RESIZABLE = True
@@ -173,15 +178,15 @@ class Config:
 
     WINDOW_ICON = 'window_icon'
 
-    # Управление видами
+    # сцена запуска
     LAUNCH_VIEW = menu.Main
 
-    # Пути
+    # пути
     DATA_FILE = Path('saves/save.json')
     ASSETS_FOLDER = Path('assets')
     SHADER_FOLDER = Path('shaders')
 
-    # Управление
+    # пользовательский ввод
     KEYS = {'fullscreen': arcade.key.F11,
             'move_up': arcade.key.W,
             'move_down': arcade.key.S,
@@ -190,15 +195,17 @@ class Config:
             'zoom_in': arcade.key.UP,
             'zoom_out': arcade.key.DOWN,
             'action': arcade.key.Z}
-
-    # Общие настройки отладки
+    # вспомогательный флаг отладки
     DEBUG = True
 
-    # - ДИНАМИЧЕСКИЕ КОНФИГУРАЦИОННЫЕ МОДУЛИ
+    # - динамические модули
+    # быстрый доступ к ресурсам
     paths: PathConfig = PathConfig(DATA_FILE, ASSETS_FOLDER, SHADER_FOLDER)
     assets: AssetsConfig = AssetsConfig(paths)
     data: DataConfig = DataConfig(paths)
     music: MusicConfig = MusicConfig(assets)
+    logger = u.archive_logging.Logger()
+    utils = u
 
     start_time = time.time()
 

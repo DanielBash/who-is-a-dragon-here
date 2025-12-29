@@ -1,6 +1,9 @@
-"""VIEW: Выбор сохранения
- - Интерфейс для выбора существующих миров или создания новых"""
+"""СЦЕНА: Выбор сохранения
+ - Выбор из созданных миров
+ - Создание новых
+ - Возвращение на предыдущее меню"""
 
+# -- импорт модулей
 import math
 import time
 from math import sin
@@ -14,18 +17,19 @@ from pyglet.math import Vec2
 import config
 
 
+# -- класс сцены
 class Main(arcade.View):
+    # -- инициализация
     def __init__(self, config):
         super().__init__()
 
-        # Начальная конфигурация
         self.conf = config
         self.scaling = self.width / 800
 
-        # НАСТРОЙКИ СЦЕНЫ
+        # настройки сцены
         self.background_color = arcade.color.Color(33, 23, 41)
 
-        # Спрайты
+        # настройка интерфейса
         self.ui = arcade.gui.UIManager()
 
         self.layout = arcade.gui.UIAnchorLayout()
@@ -40,9 +44,15 @@ class Main(arcade.View):
         self.button_column.add(self.title)
 
         self.layout.add(self.button_column)
-        self.setup()
-        self.on_resize(int(self.width), int(self.height))
 
+        self.exit_button = None
+        self.add_button = None
+        self.shadertoy = None
+
+        self.setup()
+
+        # вызов on_resize, для финальной инициализации
+        self.on_resize(int(self.width), int(self.height))
 
     def setup(self):
         data = config.Config.data
@@ -75,7 +85,7 @@ class Main(arcade.View):
         self.button_column.add(self.exit_button)
         self.ui.add(self.layout)
 
-    # -- Отрисовка
+    # -- отрисовка
     def on_draw(self):
         self.draw_all()
 
@@ -84,28 +94,16 @@ class Main(arcade.View):
         self.shadertoy.render()
         self.ui.draw()
 
-    # -- Обновление состояния
+    # -- обновление
     def on_update(self, delta_time: float):
-        # - Параметры шейдера
-        self.shadertoy.program['color'] = self.background_color.normalized[:3]
         self.shadertoy.program['time'] = int(time.time() * 10000)
-        self.shadertoy.program['mouse'] = self.window.mouse['x'], self.window.mouse['y']
-    # -- Обработка ввода пользователя
+
+    # -- обработка ввода
     def on_key_press(self, key, key_modifiers):
         if key == self.conf.KEYS['fullscreen']:
             self.window.set_fullscreen(not self.window.fullscreen)
 
-    def on_resize(self, width: int, height: int):
-        super().on_resize(width, height)
-        self.scaling = min(width / 800, height / 600)
-        self.ui.camera.position = self.width / 2, self.height / 2
-        self.ui.camera.zoom = self.scaling
-
-        shader_file_path = self.conf.SHADER_FOLDER / 'background.glsl'
-        window_size = self.window.get_size()
-        self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
-
-    # -- Обработчики интерфейса
+    # -- функции интерфейса
     def exit_button_click(self, event):
         from .menu import Main as next_view
         arcade.play_sound(self.conf.assets.effect('button_click'))
@@ -120,7 +118,7 @@ class Main(arcade.View):
         self.window.show_view(prev_view)
         return
 
-    # -- Системные события
+    # -- системные события
     def on_show_view(self):
         self.ui.enable()
         self.conf.music.ensure_playing('main_menu')
@@ -129,7 +127,17 @@ class Main(arcade.View):
     def on_hide_view(self):
         self.ui.disable()
 
-    # -- Утилиты
+    def on_resize(self, width: int, height: int):
+        super().on_resize(width, height)
+        self.scaling = min(width / 800, height / 600)
+        self.ui.camera.position = self.width / 2, self.height / 2
+        self.ui.camera.zoom = self.scaling
+
+        shader_file_path = self.conf.SHADER_FOLDER / 'background.glsl'
+        window_size = self.window.get_size()
+        self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
+
+    # -- утилиты
     def load_save(self, data):
         self.conf.current_world = data
 
@@ -137,4 +145,3 @@ class Main(arcade.View):
         arcade.play_sound(self.conf.assets.effect('button_click'))
         prev_view = next_view(self.conf)
         self.window.show_view(prev_view)
-

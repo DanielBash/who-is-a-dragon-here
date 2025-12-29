@@ -1,6 +1,7 @@
-"""VIEW: Создание нового мира
+"""СЦЕНА: Создание нового мира
  - Интерфейс для создания нового мира с удобными настройками"""
 
+# -- импорт модулей
 import math
 import random
 import time
@@ -14,19 +15,18 @@ from pyglet.math import Vec2
 
 import config
 
-
+# -- класс сцены
 class Main(arcade.View):
     def __init__(self, config):
         super().__init__()
 
-        # Начальная конфигурация
         self.conf = config
         self.scaling = self.width / 800
 
-        # НАСТРОЙКИ СЦЕНЫ
+        # настройки сцены
         self.background_color = arcade.color.Color(33, 23, 41)
 
-        # Спрайты
+        # спрайты
         self.ui = arcade.gui.UIManager()
 
         self.layout = arcade.gui.UIAnchorLayout()
@@ -71,9 +71,12 @@ class Main(arcade.View):
         self.layout.add(self.button_column)
 
         self.ui.add(self.layout)
+
+        self.shadertoy = None
+
         self.on_resize(int(self.width), int(self.height))
 
-    # -- Отрисовка
+    # -- отрисовка
     def on_draw(self):
         self.draw_all()
 
@@ -82,12 +85,9 @@ class Main(arcade.View):
         self.shadertoy.render()
         self.ui.draw()
 
-    # -- Обновление состояний
+    # -- обновление состояний
     def on_update(self, delta_time: float):
-        # - Передача параметров в шейдер
-        self.shadertoy.program['color'] = self.background_color.normalized[:3]
         self.shadertoy.program['time'] = int(time.time() * 10000)
-        self.shadertoy.program['mouse'] = self.window.mouse['x'], self.window.mouse['y']
 
     # -- Обработка ввода пользователя
     def on_key_press(self, key, key_modifiers):
@@ -114,7 +114,6 @@ class Main(arcade.View):
     def add_button_click(self, event):
         from .editor import Main as next_view
 
-        id = random.randint(0, 999_999_999)
         w = self.width_edit.text
         h = self.height_edit.text
         try:
@@ -135,8 +134,8 @@ class Main(arcade.View):
             'name': self.name_edit.text,
             'width': w,
             'height': h,
-            'data': [[None] * w for _ in range(h)],  # Объекты уровня
-            'floor': [[{'tex': 'grass_tile1'}] * w for _ in range(h)],  # Текстуры пола
+            'data': [[None] * w for _ in range(h)],  # объекты уровня
+            'floor': [[{'tex': 'grass_tile1'}] * w for _ in range(h)],  # текстуры пола
         })
         self.conf.data.save_data()
         self.conf.current_world = len(self.conf.data.data['worlds']) - 1
@@ -145,7 +144,7 @@ class Main(arcade.View):
         self.window.show_view(prev_view)
         return
 
-    # -- Системные события
+    # -- системные события
     def on_show_view(self):
         self.ui.enable()
         self.conf.music.ensure_playing('main_menu')
@@ -153,7 +152,3 @@ class Main(arcade.View):
 
     def on_hide_view(self):
         self.ui.disable()
-
-    # -- Утилиты
-    def create_save(self, data):
-        print('worlds loaded')

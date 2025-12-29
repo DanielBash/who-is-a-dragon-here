@@ -1,6 +1,9 @@
-"""VIEW: Редактор миров
- - Основной интерфейс для редактирования игровых миров"""
+"""СЦЕНА: Редактор миров
+ - Загрузка карты
+ - Отрисовка карты
+ - Редактор мира"""
 
+# -- импорт модулей
 import math
 import time
 from math import sin
@@ -14,19 +17,20 @@ from pyglet.math import Vec2
 import config
 
 
+# -- класс сцены
 class Main(arcade.View):
+    # -- инициализация
     def __init__(self, config):
         super().__init__()
 
-        # Начальная конфигурация
         self.conf = config
         self.scaling = self.width / 800
 
-        # НАСТРОЙКИ СЦЕНЫ
+        # настройки сцены
         self.background_color = arcade.color.Color(33, 23, 41)
         self.camera_speed = 100
 
-        # Спрайты
+        # спрайты
         self.tiles = arcade.SpriteList(use_spatial_hash=True)
         self.portals = arcade.SpriteList(use_spatial_hash=True)
         self.ui = arcade.gui.UIManager()
@@ -48,9 +52,12 @@ class Main(arcade.View):
         self.layout.add(self.name_input, anchor_x='left', anchor_y='top')
         self.layout.add(self.buttons, anchor_x='right', anchor_y='top')
         self.ui.add(self.layout)
+
+        self.shadertoy = None
+
         self.on_resize(int(self.width), int(self.height))
 
-        # Данные текущего мира
+        # данные текущего мира
         self.data = self.conf.data.data['worlds'][self.conf.current_world]
         self.tile_size = 32
         self.tile_texture_cache = {}
@@ -61,7 +68,6 @@ class Main(arcade.View):
         self.brush = 'portal'
 
     def setup(self):
-        # - Загрузка тайлов пола
         for row in range(len(self.data['floor'])):
             for col in range(len(self.data['floor'][row])):
                 sprite = self.data['floor'][row][col]
@@ -72,7 +78,6 @@ class Main(arcade.View):
                 tile.c = col
                 self.tiles.append(tile)
 
-        # - Загрузка порталов
         for row in range(len(self.data['data'])):
             for col in range(len(self.data['data'][row])):
                 sprite = self.data['data'][row][col]
@@ -89,7 +94,7 @@ class Main(arcade.View):
             self.tile_texture_cache[name] = self.conf.assets.texture(name)
         return self.tile_texture_cache[name]
 
-    # -- Отрисовка
+    # -- отрисовка
     def on_draw(self):
         self.draw_all()
 
@@ -101,11 +106,9 @@ class Main(arcade.View):
         self.portals.draw(pixelated=True)
         self.ui.draw()
 
-    # -- Обновление состояния
+    # -- обновление состояния
     def on_update(self, delta_time: float):
-        self.shadertoy.program['color'] = self.background_color.normalized[:3]
         self.shadertoy.program['time'] = int(time.time() * 10000)
-        self.shadertoy.program['mouse'] = self.window.mouse['x'], self.window.mouse['y']
 
         pos = [self.camera.position.x, self.camera.position.y]
         if self.conf.KEYS['move_up'] in self.keys:
@@ -120,7 +123,6 @@ class Main(arcade.View):
         if self.conf.KEYS['move_right'] in self.keys:
             pos[0] += delta_time * self.camera_speed * (5 / self.camera.zoom)
 
-        # - Зум камеры
         if self.conf.KEYS['zoom_in'] in self.keys:
             self.camera.zoom *= 1.1
 
@@ -129,8 +131,7 @@ class Main(arcade.View):
 
         self.camera.position = pos
 
-    # -- Обработка ввода пользователя
-    # buttons
+    # -- обработка ввода пользователя
     def on_key_press(self, key, key_modifiers):
         if key == self.conf.KEYS['fullscreen']:
             self.window.set_fullscreen(not self.window.fullscreen)
@@ -139,14 +140,6 @@ class Main(arcade.View):
     def on_key_release(self, symbol: int, modifiers: int):
         if symbol in self.keys:
             self.keys.remove(symbol)
-
-    def on_resize(self, width: int, height: int):
-        super().on_resize(width, height)
-        shader_file_path = self.conf.SHADER_FOLDER / 'background.glsl'
-        window_size = self.window.get_size()
-        self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
-        if hasattr(self, 'camera'):
-            self.camera.match_window()
 
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
         # - Преобразование координат мыши в мировые и применение порталов к тайлам
@@ -170,7 +163,7 @@ class Main(arcade.View):
 
         self.camera.position += before - after
 
-    # -- Обработчики интерфейса
+    # -- обработчики интерфейса
     def exit_button_click(self, event):
         from .save_select import Main as next_view
         arcade.play_sound(self.conf.assets.effect('button_click'))
@@ -181,7 +174,7 @@ class Main(arcade.View):
         arcade.play_sound(self.conf.assets.effect('button_click'))
         self.conf.data.data['worlds'][self.conf.current_world]['name'] = self.name_input.text
 
-    # -- Системные события
+    # -- системные события
     def on_show_view(self):
         self.ui.enable()
         self.conf.music.ensure_playing('editor_music')
@@ -189,3 +182,11 @@ class Main(arcade.View):
 
     def on_hide_view(self):
         self.ui.disable()
+
+    def on_resize(self, width: int, height: int):
+        super().on_resize(width, height)
+        shader_file_path = self.conf.SHADER_FOLDER / 'background.glsl'
+        window_size = self.window.get_size()
+        self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
+        if hasattr(self, 'camera'):
+            self.camera.match_window()
