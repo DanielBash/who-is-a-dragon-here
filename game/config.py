@@ -179,7 +179,7 @@ class Config:
     WINDOW_ICON = 'window_icon'
 
     # сцена запуска
-    LAUNCH_VIEW = intro.Main
+    LAUNCH_VIEW = menu.Main
 
     # пути
     DATA_FILE = Path('saves/save.json')
