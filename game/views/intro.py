@@ -59,7 +59,7 @@ class Main(arcade.View):
     def draw_all(self):
         self.clear()
         self.shadertoy.render()
-        self.text_list.draw(pixelated=True)
+        self.text_list.draw()
 
     # -- обновление состояния
     def on_update(self, delta_time: float):
@@ -86,7 +86,7 @@ class Main(arcade.View):
 
         self.credits_sprite.center_y = self.title_sprite.center_y = self.height // 2
         self.credits_sprite.center_x = self.title_sprite.center_x = self.width // 2
-        self.credits_sprite.scale = self.scaling + math.sin(time_passed) * self.scaling * 0.5
+        self.credits_sprite.scale = self.scaling * 0.4 + math.sin(time_passed) * self.scaling * 0.5
         self.title_sprite.scale = self.scaling
 
     def on_key_press(self, key, key_modifiers):

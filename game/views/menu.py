@@ -12,7 +12,21 @@ import arcade.gui
 import arcade.gui.widgets.buttons
 import arcade.gui.widgets.layout
 from arcade.experimental import Shadertoy
+from arcade.gui import UIStyleBase
 from pyglet.math import Vec2
+
+
+class CustomButtonStyle(UIStyleBase):
+    font_size: float = 18
+    font_color: tuple = (255, 255, 255, 255)
+    font_name: tuple = ("Roboto", "Arial", "calibri")
+
+
+default_button_styles = {
+    "normal": CustomButtonStyle(),
+    "hover": CustomButtonStyle(),
+    "press": CustomButtonStyle()
+}
 
 
 # -- класс сцены
@@ -23,31 +37,52 @@ class Main(arcade.View):
 
         self.conf = config
         self.scaling = self.width / 800
-        self.window.set_mouse_visible(False)
+        self.conf.assets.font('LeticeaBumsteadCyrillic')
 
         # настройки сцены
         self.background_color = arcade.color.Color(33, 23, 41)
 
-        # инициализация объектов
+        # настройка интерфейса
+        self.ui = arcade.gui.UIManager()
+
+        self.layout = arcade.gui.UIAnchorLayout()
+
+        self.button_column = arcade.gui.UIBoxLayout(space_between=10)
+
+        title_texture = self.conf.assets.texture('title')
+        self.title = arcade.gui.UIImage(
+            texture=title_texture,
+        )
+
+        self.start_button = arcade.gui.UITextureButton(
+            text='Начать',
+            texture=self.conf.assets.texture('button'),
+            texture_hovered=self.conf.assets.texture('button_hovered'),
+            scale=0.5,
+            style=default_button_styles
+        )
+        self.exit_button = arcade.gui.UITextureButton(
+            text='Выйти',
+            texture=self.conf.assets.texture('button'),
+            texture_hovered=self.conf.assets.texture('button_hovered'),
+            scale=0.5,
+            style=default_button_styles
+        )
+        self.exit_button.on_click = self.exit_button_click
+        self.start_button.on_click = self.start_button_click
+
+        self.button_column.add(self.title)
+        self.button_column.add(self.start_button)
+        self.button_column.add(self.exit_button)
+
+        self.layout.add(self.button_column)
+
+        self.ui.add(self.layout)
+
         if self.conf.DEBUG:
             self.panel = self.conf.utils.ui.DebugPanel(self.conf.logger)
 
         self.shadertoy = None
-
-        # спрайты
-        self.all_sprites = arcade.SpriteList()
-
-        self.background_sprite = arcade.Sprite(self.conf.assets.texture('background'))
-        self.background_sign_sprite = arcade.Sprite(self.conf.assets.texture('background_sign'))
-        self.background_exit_sign_sprite = arcade.Sprite(self.conf.assets.texture('background_exit_sign'))
-        self.background_start_sign_sprite = arcade.Sprite(self.conf.assets.texture('background_start_sign'))
-        self.mouse_sprite = arcade.Sprite(self.conf.assets.texture('cursor'))
-
-        self.all_sprites.append(self.background_sprite)
-        self.all_sprites.append(self.background_sign_sprite)
-        self.all_sprites.append(self.background_exit_sign_sprite)
-        self.all_sprites.append(self.background_start_sign_sprite)
-        self.all_sprites.append(self.mouse_sprite)
 
         # вызов on_resize, для финальной инициализации
         self.on_resize(int(self.width), int(self.height))
@@ -59,7 +94,7 @@ class Main(arcade.View):
     def draw_all(self):
         self.clear()
         self.shadertoy.render()
-        self.all_sprites.draw(pixelated=True)
+        self.ui.draw()
 
         if self.conf.DEBUG:
             self.panel.draw()
@@ -82,8 +117,9 @@ class Main(arcade.View):
         next_view = play_view(self.conf)
         self.window.show_view(next_view)
 
-    # -- cистемные события
+    # -- Системные события
     def on_show_view(self):
+        self.ui.enable()
         self.conf.music.ensure_playing('main_menu')
 
         if self.conf.DEBUG:
@@ -92,13 +128,10 @@ class Main(arcade.View):
         self.on_resize(int(self.width), int(self.height))
 
     def on_hide_view(self):
+        self.ui.disable()
+
         if self.conf.DEBUG:
             self.panel.disable()
-
-    def scale_to_fit_screen(self, sprite):
-        fit_x = self.width / (sprite.width / sprite.scale_x)
-        fit_y = self.height / (sprite.height / sprite.scale_y)
-        sprite.scale = max(fit_x, fit_y)
 
     def on_resize(self, width: int, height: int):
         super().on_resize(width, height)
@@ -106,20 +139,3 @@ class Main(arcade.View):
         shader_file_path = self.conf.SHADER_FOLDER / 'background.glsl'
         window_size = self.window.get_size()
         self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
-
-        x, y = self.width / 2, self.height / 2
-        self.background_sprite.position = (x, y)
-        self.scale_to_fit_screen(self.background_sprite)
-
-        self.background_sign_sprite.position = (x, y)
-        self.scale_to_fit_screen(self.background_sign_sprite)
-
-        self.background_exit_sign_sprite.position = (x, y)
-        self.scale_to_fit_screen(self.background_exit_sign_sprite)
-
-        self.background_start_sign_sprite.position = (x, y)
-        self.scale_to_fit_screen(self.background_start_sign_sprite)
-
-    def on_mouse_motion(self, x, y, w, h):
-        self.mouse_sprite.position = (x, y)
-        self.mouse_sprite.scale = self.scaling

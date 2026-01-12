@@ -24,7 +24,7 @@ import utilities as u
 # -- менеджер путей
 class PathConfig:
     def __init__(self, data_file: Path, asset_folder: Path, shader_folder: Path):
-        self.supported_ext = ['.png', '.jpg', '.jpeg', '.ico', '.json', '.mp3', '.wav']
+        self.supported_ext = ['.png', '.jpg', '.jpeg', '.ico', '.json', '.mp3', '.wav', '.ogg', '.otf']
 
         # основные пути
         self.data_file = data_file
@@ -37,6 +37,7 @@ class PathConfig:
             'effect': self.asset_folder / Path('sounds/effects'),
             'music': self.asset_folder / Path('sounds/music'),
             'texture': self.asset_folder / Path('images/textures'),
+            'font': self.asset_folder / Path('fonts/')
         }
 
         # определение системы сборки
@@ -86,6 +87,10 @@ class AssetsConfig:
     # - получение текстуры
     def texture(self, name: str) -> arcade.Texture:
         return arcade.load_texture(self.paths.short('texture', name))
+
+    # - получение шрифта
+    def font(self, name: str) -> str:
+        arcade.load_font(self.paths.short('font', name))
 
 
 # -- обработка сохранений
@@ -195,8 +200,12 @@ class Config:
             'zoom_in': arcade.key.UP,
             'zoom_out': arcade.key.DOWN,
             'action': arcade.key.Z}
+
     # вспомогательный флаг отладки
     DEBUG = True
+
+    # доступные сложности
+    DIFFICULTIES = ['Прогулка', 'Приключение', 'Пытка', 'Шашлыки']
 
     # - динамические модули
     # быстрый доступ к ресурсам
