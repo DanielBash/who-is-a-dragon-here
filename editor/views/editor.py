@@ -7,12 +7,15 @@
 import math
 import time
 from math import sin
+from pathlib import Path
+
 import arcade
 import arcade.gui
 import arcade.gui.widgets.buttons
 import arcade.gui.widgets.layout
 from arcade.experimental import Shadertoy
 from pyglet.math import Vec2
+from copy import deepcopy
 
 import config
 
@@ -40,14 +43,17 @@ class Main(arcade.View):
         self.name_input = arcade.gui.UIInputText(width=200, height=30, text=self.conf.data.data['worlds'][self.conf.current_world]['name'])
         self.buttons = arcade.gui.UIButtonRow()
 
+        self.export_button = arcade.gui.UIFlatButton(text='Эксп.')
         self.save_button = arcade.gui.UIFlatButton(text='Сохранить')
         self.exit_button = arcade.gui.UIFlatButton(text='Выйти')
 
         self.exit_button.on_click = self.exit_button_click
         self.save_button.on_click = self.save_button_click
+        self.export_button.on_click = self.export_button_click
 
         self.buttons.add(self.save_button)
         self.buttons.add(self.exit_button)
+        self.buttons.add(self.export_button)
 
         self.layout.add(self.name_input, anchor_x='left', anchor_y='top')
         self.layout.add(self.buttons, anchor_x='right', anchor_y='top')
@@ -173,6 +179,18 @@ class Main(arcade.View):
     def save_button_click(self, event):
         arcade.play_sound(self.conf.assets.effect('button_click'))
         self.conf.data.data['worlds'][self.conf.current_world]['name'] = self.name_input.text
+
+    def export_button_click(self, event):
+        data_prev = deepcopy(self.conf.data)
+        self.conf.paths.data_file = Path(f'{str(self.conf.DATA_FILE)}_export')
+        self.conf.data.__init__(self.conf.paths)
+        new_data = {'template_world': {'name': 'template_world', 'difficulty': 'template_difficulty'}, 'wolds': []}
+
+        self.conf.data.data = deepcopy(new_data)
+        self.conf.data.save_data()
+
+        self.conf.paths.data_file = self.conf.DATA_FILE
+        self.conf.data.__init__(self.conf.paths)
 
     # -- системные события
     def on_show_view(self):

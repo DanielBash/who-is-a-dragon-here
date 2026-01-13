@@ -182,7 +182,7 @@ class Config:
     LAUNCH_VIEW = menu.Main
 
     # пути
-    DATA_FILE = Path('saves/save.json')
+    DATA_FILE = Path('saves/save')
     ASSETS_FOLDER = Path('assets')
     SHADER_FOLDER = Path('shaders')
 
