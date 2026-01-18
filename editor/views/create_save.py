@@ -130,13 +130,19 @@ class Main(arcade.View):
         if 'worlds' not in self.conf.data.data:
             self.conf.data.data['worlds'] = []
 
-        self.conf.data.data['worlds'].append({
-            'name': self.name_edit.text,
+        # - новая структура мира
+        new_world = {
+            'name': self.name_edit.text or f"Мир {len(self.conf.data.data['worlds']) + 1}",
             'width': w,
             'height': h,
-            'data': [[None] * w for _ in range(h)],  # объекты уровня
-            'floor': [[{'tex': 'grass_tile1'}] * w for _ in range(h)],  # текстуры пола
-        })
+            'data': [[None] * w for _ in range(h)],
+            'floor': [[{
+                'type': 'floor',
+                'portals': {'up': None, 'down': None, 'left': None, 'right': None}
+            } for _ in range(w)] for _ in range(h)]
+        }
+
+        self.conf.data.data['worlds'].append(new_world)
         self.conf.data.save_data()
         self.conf.current_world = len(self.conf.data.data['worlds']) - 1
         arcade.play_sound(self.conf.assets.effect('button_click'))

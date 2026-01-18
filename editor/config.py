@@ -194,7 +194,7 @@ class Config:
             'move_right': arcade.key.D,
             'zoom_in': arcade.key.UP,
             'zoom_out': arcade.key.DOWN,
-            'action': arcade.key.Z}
+            'mode_toggle': arcade.key.TAB}
     # вспомогательный флаг отладки
     DEBUG = True
 

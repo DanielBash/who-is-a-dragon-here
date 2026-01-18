@@ -55,7 +55,7 @@ class Main(arcade.View):
         self.on_resize(int(self.width), int(self.height))
 
     def setup(self):
-        data = config.Config.data
+        data = self.conf.data
 
         # - Создание кнопок для каждого существующего мира
         if 'worlds' in data.data:
