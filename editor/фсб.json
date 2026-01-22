@@ -1,0 +1,960 @@
+{
+  "metadata": {
+    "name": "фсб",
+    "width": 10,
+    "height": 10,
+    "export_date": "2026-01-23 00:30:28"
+  },
+  "tiles": [
+    [
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      }
+    ],
+    [
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      }
+    ],
+    [
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      }
+    ],
+    [
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "wall",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "wall",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      }
+    ],
+    [
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "wall",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": 0,
+          "right": null
+        }
+      },
+      {
+        "type": "wall",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      }
+    ],
+    [
+      {
+        "type": "wall",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "wall",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      }
+    ],
+    [
+      {
+        "type": "wall",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": 0,
+          "right": null
+        }
+      },
+      {
+        "type": "wall",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      }
+    ],
+    [
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "wall",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "void",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      }
+    ],
+    [
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      }
+    ],
+    [
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      },
+      {
+        "type": "floor",
+        "portals": {
+          "up": null,
+          "down": null,
+          "left": null,
+          "right": null
+        }
+      }
+    ]
+  ],
+  "enemies": [
+    {
+      "x": 6,
+      "y": 5,
+      "type": "basic",
+      "health": 100,
+      "damage": 10
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "type": "basic",
+      "health": 100,
+      "damage": 10
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "type": "basic",
+      "health": 100,
+      "damage": 10
+    },
+    {
+      "x": 9,
+      "y": 5,
+      "type": "basic",
+      "health": 100,
+      "damage": 10
+    }
+  ]
+}
