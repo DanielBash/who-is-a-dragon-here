@@ -58,7 +58,6 @@ class Main(arcade.View):
 
     def draw_all(self):
         self.clear()
-        self.shadertoy.render()
         self.text_list.draw()
 
     # -- обновление состояния

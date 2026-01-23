@@ -71,7 +71,6 @@ class Main(arcade.View):
 
     def draw_all(self):
         self.clear()
-        self.shadertoy.render()
         self.ui.draw()
 
         if self.conf.DEBUG:

@@ -16,7 +16,7 @@ from typing import Optional
 import arcade
 import pyglet
 
-from views import menu, intro
+from views import menu, intro, comics
 import utilities as u
 
 
@@ -115,20 +115,14 @@ class DataConfig:
             with gzip.open(self.paths.data_file, "rt", encoding="utf-8") as f:
                 self.data = json.load(f)
                 return
-        except OSError:
-            pass
-        except json.JSONDecodeError:
-            self.data = {}
-            return
-
-        try:
-            with self.paths.data_file.open("r", encoding="utf-8") as f:
-                self.data = json.load(f)
-
-            self.save_data()
-
-        except Exception:
-            self.data = {}
+        except Exception as e:
+            try:
+                with self.paths.data_file.open("r", encoding="utf-8") as f:
+                    self.data = json.load(f)
+                self.save_data()
+            except Exception as e:
+                self.data = {}
+                return
 
     # - сохранение данных
     def save_data(self):
@@ -164,7 +158,8 @@ class MusicConfig:
 
     # -- звуковые эффекты
     def play_sound(self, name):
-        arcade.play_sound(self.assets.effect(name, streaming=False))
+        effect = self.assets.effect(name, streaming=False)
+        return arcade.play_sound(effect), effect
 
 
 # === ХРАНЕНИЕ ДАННЫХ ===
@@ -184,7 +179,7 @@ class Config:
     WINDOW_ICON = 'window_icon'
 
     # сцена запуска
-    LAUNCH_VIEW = menu.Main
+    LAUNCH_VIEW = comics.Main
 
     # пути
     DATA_FILE = Path('saves/save.json')
@@ -219,3 +214,5 @@ class Config:
     start_time = time.time()
 
     current_world = 0
+
+    logger.log(f'Настройки заданы. Базовые модули функционируют. Файл сохранения содержит {len(data.data)} аттрибута(ов)')

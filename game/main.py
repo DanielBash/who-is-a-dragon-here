@@ -4,7 +4,6 @@
 
 # -- импорт модулей
 import arcade
-import pyglet
 from arcade import View
 import inspect
 from pathlib import Path

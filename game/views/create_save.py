@@ -122,7 +122,6 @@ class Main(arcade.View):
 
     def draw_all(self):
         self.clear()
-        self.shadertoy.render()
         self.ui.draw()
 
         if self.conf.DEBUG:
@@ -179,7 +178,12 @@ class Main(arcade.View):
         template['difficulty'] = self.conf.DIFFICULTIES.index(difficulty)
 
         self.conf.data.data['worlds'].append(template)
-        from .save_select import Main as play_view
+
+        self.conf.data.save_data()
+
+        self.conf.current_world = len(self.conf.data.data['worlds']) - 1
+
+        from .comics import Main as play_view
         arcade.play_sound(self.conf.assets.effect('button_click'))
         next_view = play_view(self.conf)
         self.window.show_view(next_view)
