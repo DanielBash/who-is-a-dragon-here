@@ -6,6 +6,7 @@ import math
 import time
 from math import sin
 import arcade
+import arcade.gui
 from arcade.experimental import CRTFilter
 from pyglet.math import Vec2
 from .menu import Main as main_menu
@@ -75,6 +76,15 @@ class Main(arcade.View):
 
         self.current_speech = None
 
+        self.ui = arcade.gui.UIManager()
+        self.layout = arcade.gui.UIAnchorLayout()
+
+        self.subtitles_label = arcade.gui.UILabel(text='', font_size=20)
+
+        self.layout.add(self.subtitles_label, anchor_y='bottom', anchor_x='center')
+
+        self.ui.add(self.layout)
+
         # флаги состояния
         self.start_time = time.time()
         self.danger_played = False
@@ -82,8 +92,6 @@ class Main(arcade.View):
         self.camera = arcade.Camera2D()
         self.camera.position = (0, 50)
         self.camera.zoom = 0.5 * self.scaling
-
-        self.gui_camera = arcade.Camera2D()
 
         self.current_slide = 0
         self.slide_playing = False
@@ -101,14 +109,7 @@ class Main(arcade.View):
         self.clear()
         self.sprite_list.draw()
 
-        if self.current_slide > 0:
-            arcade.draw_text(
-                sub_titles[self.current_slide - 1],
-                color=arcade.color.WHITE,
-                x=self.window.width // 2,
-                y=self.window.height // 2,
-                font_size=20,
-            )
+        self.ui.draw()
 
     # -- обновление состояния
     def on_update(self, delta_time: float):
@@ -117,18 +118,20 @@ class Main(arcade.View):
             if self.current_slide == 0:
                 self.conf.logger.log('Начало показа комикса')
                 self.current_slide = 1
+                self.subtitles_label.text = sub_titles[self.current_slide - 1]
             if self.current_slide > 0:
                 if not self.slide_playing:
-                    if self.current_slide == 8:
-                        self.load_game()
-                        return
                     self.current_speech = self.conf.music.play_sound(f'slide_{self.current_slide}')
                     self.__getattribute__(f'slide_{self.current_slide}').visible = True
                     self.slide_playing = True
 
                 if not self.current_speech[1].is_playing(self.current_speech[0]):
                     self.current_slide += 1
+                    if self.current_slide == 8:
+                        self.load_game()
+                        return
                     self.slide_playing = False
+                    self.subtitles_label.text = sub_titles[self.current_slide - 1]
 
     def load_game(self):
         from .game import Main as next_view
@@ -144,6 +147,11 @@ class Main(arcade.View):
         self.scaling = min(width / 800, height / 600)
         if hasattr(self, 'camera'):
             self.camera.match_window()
-            self.gui_camera.match_window()
-
             self.camera.zoom = 0.3 * self.scaling
+
+    def on_hide_view(self):
+        self.ui.disable()
+
+    def on_show_view(self):
+        self.ui.enable()
+        self.conf.music.ensure_music_stopped()

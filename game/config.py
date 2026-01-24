@@ -156,6 +156,12 @@ class MusicConfig:
         self.playing_name = name
         self.music = arcade.play_sound(self.assets.music(name), loop=loop)
 
+    def ensure_music_stopped(self):
+        if self.music:
+            arcade.stop_sound(self.music)
+            self.music = None
+            self.playing_name = ''
+
     # -- звуковые эффекты
     def play_sound(self, name):
         effect = self.assets.effect(name, streaming=False)
@@ -179,7 +185,7 @@ class Config:
     WINDOW_ICON = 'window_icon'
 
     # сцена запуска
-    LAUNCH_VIEW = comics.Main
+    LAUNCH_VIEW = menu.Main
 
     # пути
     DATA_FILE = Path('saves/save.json')
@@ -201,6 +207,8 @@ class Config:
 
     # доступные сложности
     DIFFICULTIES = ['Прогулка', 'Приключение', 'Пытка', 'Шашлыки']
+
+    CUSTOM_CURSOR = True
 
     # - динамические модули
     # быстрый доступ к ресурсам

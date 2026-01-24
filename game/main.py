@@ -32,6 +32,8 @@ def main():
     window.set_icon(conf.assets.icon(conf.WINDOW_ICON))
     if conf.DEBUG:
         arcade.enable_timings()
+    if conf.CUSTOM_CURSOR:
+        window.set_mouse_visible(False)
     conf.logger.log(f'Успешная инициализация DEBUG={conf.DEBUG}')
     arcade.run()
 

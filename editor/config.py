@@ -157,6 +157,12 @@ class MusicConfig:
         self.playing_name = name
         self.music = arcade.play_sound(self.assets.music(name), loop=loop)
 
+    def ensure_music_stopped(self):
+        if self.music:
+            arcade.stop_sound(self.music)
+            self.music = None
+            self.playing_name = ''
+
     # -- звуковые эффекты
     def play_sound(self, name):
         arcade.play_sound(self.assets.effect(name, streaming=False))

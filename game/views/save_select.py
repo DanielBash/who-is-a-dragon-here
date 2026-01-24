@@ -84,6 +84,11 @@ class Main(arcade.View):
 
         self.shadertoy = None
 
+        self.mouse = arcade.Sprite(path_or_texture=self.conf.assets.texture('cursor'), scale=0.1)
+
+        self.mouse_sprite_list = arcade.SpriteList()
+        self.mouse_sprite_list.append(self.mouse)
+
         # вызов on_resize, для финальной инициализации
         self.on_resize(int(self.width), int(self.height))
 
@@ -117,6 +122,7 @@ class Main(arcade.View):
 
     def on_draw(self):
         self.draw_all()
+        self.mouse_sprite_list.draw()
 
     def draw_all(self):
         self.clear()
@@ -168,3 +174,6 @@ class Main(arcade.View):
         shader_file_path = self.conf.SHADER_FOLDER / 'background.glsl'
         window_size = self.window.get_size()
         self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
+
+    def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
+        self.mouse.position = (x, y)

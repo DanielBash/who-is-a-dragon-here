@@ -84,12 +84,18 @@ class Main(arcade.View):
 
         self.shadertoy = None
 
+        self.mouse = arcade.Sprite(path_or_texture=self.conf.assets.texture('cursor'), scale=0.1)
+
+        self.mouse_sprite_list = arcade.SpriteList()
+        self.mouse_sprite_list.append(self.mouse)
+
         # вызов on_resize, для финальной инициализации
         self.on_resize(int(self.width), int(self.height))
 
     # -- отрисовка
     def on_draw(self):
         self.draw_all()
+        self.mouse_sprite_list.draw()
 
     def draw_all(self):
         self.clear()
@@ -101,6 +107,9 @@ class Main(arcade.View):
     # -- обновление состояния
     def on_update(self, delta_time: float):
         self.shadertoy.program['time'] = int(time.time() * 10000)
+
+    def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
+        self.mouse.position = (x, y)
 
     # -- обработка ввода пользователя
     def on_key_press(self, key, key_modifiers):

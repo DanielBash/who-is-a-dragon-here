@@ -44,6 +44,10 @@ class Main(arcade.View):
         self.text_list.append(self.title_sprite)
 
         self.shadertoy = None
+        self.mouse = arcade.Sprite(path_or_texture=self.conf.assets.texture('cursor'), scale=0.1)
+
+        self.mouse_sprite_list = arcade.SpriteList()
+        self.mouse_sprite_list.append(self.mouse)
 
         # флаги состояния
         self.start_time = time.time()
@@ -55,6 +59,7 @@ class Main(arcade.View):
     # -- отрисовка
     def on_draw(self):
         self.draw_all()
+        self.mouse_sprite_list.draw()
 
     def draw_all(self):
         self.clear()
@@ -103,3 +108,6 @@ class Main(arcade.View):
     def on_show_view(self):
         arcade.play_sound(self.conf.assets.effect('danger'))
         self.start_time = time.time()
+
+    def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
+        self.mouse.position = (x, y)
