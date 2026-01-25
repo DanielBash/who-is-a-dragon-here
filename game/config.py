@@ -200,10 +200,11 @@ class Config:
             'move_right': arcade.key.D,
             'zoom_in': arcade.key.UP,
             'zoom_out': arcade.key.DOWN,
-            'action': arcade.key.Z}
+            'action': arcade.key.Z,
+            'escape': arcade.key.ESCAPE}
 
     # вспомогательный флаг отладки
-    DEBUG = True
+    DEBUG = False
 
     # доступные сложности
     DIFFICULTIES = ['Прогулка', 'Приключение', 'Пытка', 'Шашлыки']

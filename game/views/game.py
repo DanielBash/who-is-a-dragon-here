@@ -1,7 +1,5 @@
-"""СЦЕНА: Главное меню
- - Основной интерфейс меню
- - Выход из приложения
- - Запуск"""
+"""СЦЕНА: Игра
+ - Основной геймплей"""
 
 # -- импорт модулей
 import math, json, heapq, time
@@ -16,11 +14,8 @@ DIRS = {'up': (0, -1), 'down': (0, 1), 'left': (-1, 0), 'right': (1, 0)}
 OPP = {'up': 'down', 'down': 'up', 'left': 'right', 'right': 'left'}
 SIDES = list(DIRS)
 
-world = [[]]
-W, H = len(world), len(world[0])
+W, H = 100, 100
 VW, VH = 11, 11
-
-DEFAULT_TILE = 'grass_1'
 
 
 def tile(x, y):
@@ -31,13 +26,11 @@ def tile(x, y):
 
 def edge_owner(wx, wy, side):
     t = tile(wx, wy)
-    if t['portals'][side] is not None:
-        return t['portals'][side], wx, wy, side
+    if t['portals'][side] is not None: return t['portals'][side], wx, wy, side
     dx, dy = DIRS[side]
     nt = tile(wx + dx, wy + dy)
     pid = nt['portals'][OPP[side]]
-    if pid is not None:
-        return pid, wx + dx, wy + dy, OPP[side]
+    if pid is not None: return pid, wx + dx, wy + dy, OPP[side]
     return None, None, None, None
 
 
@@ -181,6 +174,7 @@ class Main(arcade.View):
                 row.append(sprite)
             self.display_tiles_data.append(row)
 
+    # -- отрисовка
     def on_draw(self):
         self.draw_all()
 
@@ -214,7 +208,7 @@ class Main(arcade.View):
         for sy in range(VH):
             for sx in range(VW):
                 if (sx, sy) in mapping:
-                    wx, wy, t, cost = mapping[(sx, sy)]
+                    wx, wy, t, cost = mapping[(sx, VH - 1 - sy)]
                     if t['type'] != 'void':
                         if self.display_tiles_data[sy][sx].curr_tex != t['type']:
                             self.display_tiles_data[sy][sx].texture = self.conf.assets.texture(t['type'])
@@ -222,6 +216,10 @@ class Main(arcade.View):
                             self.display_tiles_data[sy][sx].curr_tex = t['type']
                     else:
                         self.display_tiles_data[sy][sx].visible = False
+                        self.display_tiles_data[sy][sx].curr_tex = 'void'
+                else:
+                    self.display_tiles_data[sy][sx].visible = False
+                    self.display_tiles_data[sy][sx].curr_tex = 'void'
 
     def update_positions(self):
         center_x, center_y = self.camera.position
@@ -256,19 +254,19 @@ class Main(arcade.View):
         elif key == self.conf.KEYS['move_right']:
             x, y = step(self.player.x, self.player.y, 'right')
             self.player.x, self.player.y = x, y
+        elif key == self.conf.KEYS['escape']:
+            self.go_to_menu()
 
-    def exit_button_click(self, event):
-        from .save_select import Main as play_view
-        arcade.play_sound(self.conf.assets.effect('button_click'))
-        next_view = play_view(self.conf)
-        self.window.show_view(next_view)
+    def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
+        wx, wy, _ = self.cursor_camera.unproject((x, y))
+        self.mouse.position = (wx, wy)
 
     # -- Системные события
     def on_show_view(self):
         global world, W, H
 
         self.ui.enable()
-        self.conf.music.ensure_playing('main_menu')
+        self.conf.music.ensure_playing('game')
 
         if self.conf.DEBUG:
             self.panel.enable()
@@ -292,6 +290,9 @@ class Main(arcade.View):
         for i in self.matching_cameras:
             i.match_window()
 
-    def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
-        wx, wy, _ = self.cursor_camera.unproject((x, y))
-        self.mouse.position = (wx, wy)
+    # вспомогательные функции
+    def go_to_menu(self):
+        from .game_menu import Main as play_view
+        arcade.play_sound(self.conf.assets.effect('button_click'))
+        next_view = play_view(self.conf)
+        self.window.show_view(next_view)
