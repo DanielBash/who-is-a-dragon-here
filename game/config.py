@@ -16,7 +16,7 @@ from typing import Optional
 import arcade
 import pyglet
 
-from views import menu, intro, comics
+from views import menu, intro, comics, battle_arena
 import utilities as u
 
 
@@ -154,7 +154,7 @@ class MusicConfig:
         if self.music:
             arcade.stop_sound(self.music)
         self.playing_name = name
-        self.music = arcade.play_sound(self.assets.music(name), loop=loop)
+        self.music = arcade.play_sound(self.assets.music(name), loop=loop, volume=0.3)
 
     def ensure_music_stopped(self):
         if self.music:
@@ -166,6 +166,23 @@ class MusicConfig:
     def play_sound(self, name):
         effect = self.assets.effect(name, streaming=False)
         return arcade.play_sound(effect), effect
+
+
+class Enemy:
+    def __init__(self, tex, health):
+        self.texture = tex
+        self.health = health
+        self.shadows = ['figure_1', 'figure_2', 'figure_3', 'figure_4']
+        self.speed = 1
+
+
+class Player:
+    def __init__(self, health=50, name='Иванушка'):
+        self.health = health
+        self.name = name
+        self.inventory = [{'type': 'heal', 'heal': 20, 'texture': 'bottle_20'},
+                          {'type': 'heal', 'heal': 10, 'texture': 'bottle_10'},
+                          {'type': 'heal', 'heal': 10, 'texture': 'bottle_10'}]
 
 
 # === ХРАНЕНИЕ ДАННЫХ ===
@@ -185,7 +202,7 @@ class Config:
     WINDOW_ICON = 'window_icon'
 
     # сцена запуска
-    LAUNCH_VIEW = menu.Main
+    LAUNCH_VIEW = battle_arena.Main
 
     # пути
     DATA_FILE = Path('saves/save.json')
@@ -220,8 +237,12 @@ class Config:
     logger = u.archive_logging.Logger()
     utils = u
 
+    player = Player()
+    enemy = Enemy('enemy', 100)
+
     start_time = time.time()
 
     current_world = 0
 
-    logger.log(f'Настройки заданы. Базовые модули функционируют. Файл сохранения содержит {len(data.data)} аттрибута(ов)')
+    logger.log(
+        f'Настройки заданы. Базовые модули функционируют. Файл сохранения содержит {len(data.data)} аттрибута(ов)')

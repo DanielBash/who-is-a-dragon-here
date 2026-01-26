@@ -112,6 +112,12 @@ class Player:
         self.health = health
 
 
+class Enemy:
+    def __init__(self, tex, health):
+        self.texture = 'enemy'
+        self.health = 100
+
+
 # -- класс сцены
 class Main(arcade.View):
     # -- инициализация
@@ -148,6 +154,8 @@ class Main(arcade.View):
         self.entities_sprite_list = arcade.SpriteList()
 
         self.player = Player(50, 50)
+        self.conf.player = self.player
+
         self.prev_player_pos = [self.player.x, self.player.y]
         self.player_sprite = arcade.Sprite(path_or_texture=self.conf.assets.texture('knight_standing'))
         self.entities_sprite_list.append(self.player_sprite)
@@ -207,7 +215,7 @@ class Main(arcade.View):
         mapping = self.grid_data
         for sy in range(VH):
             for sx in range(VW):
-                if (sx, sy) in mapping:
+                if (sx, VH - 1 - sy) in mapping:
                     wx, wy, t, cost = mapping[(sx, VH - 1 - sy)]
                     if t['type'] != 'void':
                         if self.display_tiles_data[sy][sx].curr_tex != t['type']:

@@ -128,7 +128,7 @@ class Main(arcade.View):
     # -- Системные события
     def on_show_view(self):
         self.ui.enable()
-        self.conf.music.ensure_playing('main_menu')
+        self.conf.music.ensure_playing('menu')
 
         if self.conf.DEBUG:
             self.panel.enable()
