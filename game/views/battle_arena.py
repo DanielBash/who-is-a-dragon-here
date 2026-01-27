@@ -92,6 +92,7 @@ class Main(arcade.View):
 
         self.button_row = arcade.gui.UIBoxLayout(space_between=10, vertical=False)
         self.items_row = arcade.gui.UIBoxLayout(space_between=10, vertical=False)
+        self.enemy_name_label = arcade.gui.UILabel(font_size=20, text=self.conf.enemy.name)
 
         self.fight_button = arcade.gui.UITextureButton(
             text='Ударить',
@@ -121,6 +122,7 @@ class Main(arcade.View):
 
         self.layout.add(self.button_row, anchor_x='center', anchor_y='bottom')
         self.layout.add(self.items_row, anchor_x='center', anchor_y='center')
+        self.layout.add(self.enemy_name_label, anchor_x='center', anchor_y='top')
 
         self.ui.add(self.layout)
 

@@ -6,12 +6,14 @@ import arcade.gui
 from arcade.experimental import Shadertoy
 import config
 
+import tkinter as tk
+from tkinter import filedialog
+
 
 class Main(arcade.View):
     def __init__(self, config):
         super().__init__()
         self.conf = config
-        self.scaling = self.width / 800
 
         self.background_color = arcade.color.Color(33, 23, 41)
         self.camera_speed = 100
@@ -26,94 +28,159 @@ class Main(arcade.View):
         ]
 
         self.selected_tile = 'floor'
+        self.custom_tile_texture = None
+        self.custom_tile_name = None
 
         self.floor_sprites = arcade.SpriteList(use_spatial_hash=True)
         self.wall_sprites = arcade.SpriteList(use_spatial_hash=True)
         self.portal_sprites = arcade.SpriteList(use_spatial_hash=True)
         self.enemy_sprites = arcade.SpriteList(use_spatial_hash=True)
+        self.item_sprites = arcade.SpriteList(use_spatial_hash=True)
 
         self.ui = arcade.gui.UIManager()
         self.layout = arcade.gui.UIAnchorLayout()
 
-        self.tool_panel = arcade.gui.UIBoxLayout(vertical=False, space_between=5)
+        self.tool_panel = arcade.gui.UIBoxLayout(vertical=False, space_between=10)
+        self.custom_tile_container = arcade.gui.UIBoxLayout(vertical=False)
+        self.control_buttons_container = arcade.gui.UIBoxLayout(vertical=True, space_between=5)
+        self.tile_type_container = arcade.gui.UIBoxLayout(vertical=False, space_between=10)
+
         self.tile_mode_btn = arcade.gui.UIFlatButton(text='тайлы', width=80)
         self.portal_mode_btn = arcade.gui.UIFlatButton(text='порталы', width=80)
         self.enemy_mode_btn = arcade.gui.UIFlatButton(text='враги', width=80)
 
-        self.tile_mode_btn.on_click = lambda e: self.set_edit_mode('tile')
-        self.portal_mode_btn.on_click = lambda e: self.set_edit_mode('portal')
-        self.enemy_mode_btn.on_click = lambda e: self.set_edit_mode('enemy')
+        def set_tile_mode(event):
+            self.set_edit_mode('tile')
+
+        def set_portal_mode(event):
+            self.set_edit_mode('portal')
+
+        def set_enemy_mode(event):
+            self.set_edit_mode('enemy')
+
+        self.tile_mode_btn.on_click = set_tile_mode
+        self.portal_mode_btn.on_click = set_portal_mode
+        self.enemy_mode_btn.on_click = set_enemy_mode
 
         self.tool_panel.add(self.tile_mode_btn)
         self.tool_panel.add(self.portal_mode_btn)
         self.tool_panel.add(self.enemy_mode_btn)
 
-        self.tile_panel = arcade.gui.UIBoxLayout(vertical=False, space_between=5)
-        self.floor_btn = arcade.gui.UIFlatButton(text='пол', width=60, height=40)
-        self.wall_btn = arcade.gui.UIFlatButton(text='стена', width=60, height=40)
-        self.void_btn = arcade.gui.UIFlatButton(text='пустота', width=60, height=40)
+        self.custom_tile_btn = arcade.gui.UIFlatButton(text='выбрать тайл', width=120)
+        self.custom_tile_btn.on_click = self.select_custom_tile
+        self.custom_tile_container.add(self.custom_tile_btn)
 
-        self.floor_btn.on_click = lambda e: self.select_tile('floor')
-        self.wall_btn.on_click = lambda e: self.select_tile('wall')
-        self.void_btn.on_click = lambda e: self.select_tile('void')
+        self.floor_btn = arcade.gui.UIFlatButton(text='пол', width=80, height=40)
+        self.wall_btn = arcade.gui.UIFlatButton(text='стена', width=80, height=40)
+        self.void_btn = arcade.gui.UIFlatButton(text='пустота', width=80, height=40)
+        self.item_btn = arcade.gui.UIFlatButton(text='предмет', width=80, height=40)
 
-        self.tile_panel.add(self.floor_btn)
-        self.tile_panel.add(self.wall_btn)
-        self.tile_panel.add(self.void_btn)
+        def select_floor(event):
+            self.select_tile('floor')
 
-        self.portal_panel = arcade.gui.UIBoxLayout(vertical=False, space_between=5)
-        for i in range(len(self.portal_colors)):
-            btn = arcade.gui.UIFlatButton(text=str(i), width=40, height=40)
-            btn.on_click = lambda e, idx=i: self.select_portal(idx)
-            self.portal_panel.add(btn)
+        def select_wall(event):
+            self.select_tile('wall')
 
-        self.enemy_panel = arcade.gui.UIBoxLayout(vertical=False, space_between=5)
-        self.enemy_add_btn = arcade.gui.UIFlatButton(text='+ враг', width=80, height=40)
-        self.enemy_add_btn.on_click = lambda e: self.set_edit_mode('enemy')
-        self.enemy_panel.add(self.enemy_add_btn)
+        def select_void(event):
+            self.select_tile('void')
+
+        def select_item(event):
+            self.select_tile('item')
+
+        self.floor_btn.on_click = select_floor
+        self.wall_btn.on_click = select_wall
+        self.void_btn.on_click = select_void
+        self.item_btn.on_click = select_item
+
+        self.tile_type_container.add(self.floor_btn)
+        self.tile_type_container.add(self.wall_btn)
+        self.tile_type_container.add(self.void_btn)
+        self.tile_type_container.add(self.item_btn)
+
+        self.portal_container = arcade.gui.UIBoxLayout(vertical=False, space_between=5)
+        self.portal_container.visible = False
+        self.enemy_container = arcade.gui.UIBoxLayout(vertical=False, space_between=5)
+        self.enemy_container.visible = False
 
         world_data = self.conf.data.data['worlds'][self.conf.current_world]
         self.name_input = arcade.gui.UIInputText(width=200, height=30, text=world_data['name'])
-        self.buttons = arcade.gui.UIButtonRow()
 
-        self.export_button = arcade.gui.UIFlatButton(text='эксп.')
-        self.save_button = arcade.gui.UIFlatButton(text='сохранить')
-        self.exit_button = arcade.gui.UIFlatButton(text='выйти')
+        self.save_button = arcade.gui.UIFlatButton(text='сохранить', width=100)
+        self.exit_button = arcade.gui.UIFlatButton(text='выйти', width=100)
+        self.export_button = arcade.gui.UIFlatButton(text='экспорт', width=100)
 
         self.exit_button.on_click = self.exit_button_click
         self.save_button.on_click = self.save_button_click
         self.export_button.on_click = self.export_button_click
 
-        self.buttons.add(self.save_button)
-        self.buttons.add(self.exit_button)
-        self.buttons.add(self.export_button)
+        self.control_buttons_container.add(self.save_button)
+        self.control_buttons_container.add(self.export_button)
+        self.control_buttons_container.add(self.exit_button)
 
-        top_layout = arcade.gui.UIBoxLayout(vertical=False, space_between=10)
-        top_layout.add(self.tool_panel)
+        self.layout.add(
+            self.tool_panel,
+            anchor_x='left',
+            anchor_y='top',
+            align_x=135,
+            align_y=0
+        )
 
-        self.portal_container = arcade.gui.UIBoxLayout(vertical=False, space_between=5)
-        self.portal_container.add(self.portal_panel)
-        self.portal_container.visible = False
+        self.layout.add(
+            self.custom_tile_container,
+            anchor_x='left',
+            anchor_y='top',
+            align_x=0,
+            align_y=0
+        )
 
-        self.enemy_container = arcade.gui.UIBoxLayout(vertical=False, space_between=5)
-        self.enemy_container.add(self.enemy_panel)
-        self.enemy_container.visible = False
+        self.layout.add(
+            self.name_input,
+            anchor_x='left',
+            anchor_y='top',
+            align_x=20,
+            align_y=-60
+        )
 
-        top_layout.add(self.portal_container)
-        top_layout.add(self.enemy_container)
+        self.layout.add(
+            self.control_buttons_container,
+            anchor_x='right',
+            anchor_y='top',
+            align_x=0,
+            align_y=0
+        )
 
-        self.layout.add(top_layout, anchor_x='center', anchor_y='top')
-        self.layout.add(self.tile_panel, anchor_x='center', anchor_y='bottom', align_y=40)
-        self.layout.add(self.name_input, anchor_x='left', anchor_y='top', align_y=-40)
-        self.layout.add(self.buttons, anchor_x='right', anchor_y='top')
+        self.layout.add(
+            self.tile_type_container,
+            anchor_x='left',
+            anchor_y='bottom',
+            align_y=0
+        )
+
+        self.layout.add(
+            self.portal_container,
+            anchor_x='center',
+            anchor_y='top',
+            align_y=-80
+        )
+
+        self.layout.add(
+            self.enemy_container,
+            anchor_x='center',
+            anchor_y='top',
+            align_y=-80
+        )
+
         self.ui.add(self.layout)
-
         self.shadertoy = None
         self.on_resize(int(self.width), int(self.height))
 
         self.world_data = self.conf.data.data['worlds'][self.conf.current_world]
         self.tile_size = 32
         self.tile_texture_cache = {}
+
+        self.custom_textures = {}
+
+        self.initialize_tile_data()
 
         self.camera = arcade.Camera2D()
         self.keys = set()
@@ -122,8 +189,185 @@ class Main(arcade.View):
         self.status_timer = 0
         self.hover_tile = None
 
+        self.editing_dialog = False
+        self.dialog_input = None
+        self.dialog_window = None
+        self.enemy_tile = None
+
         self.setup()
         self.select_tile('floor')
+
+    def initialize_tile_data(self):
+        for y in range(self.world_data['height']):
+            for x in range(self.world_data['width']):
+                tile_data = self.world_data['floor'][y][x]
+
+                if 'type' not in tile_data:
+                    tile_data['type'] = 'floor'
+
+                if 'portals' not in tile_data:
+                    tile_data['portals'] = {'up': None, 'down': None, 'left': None, 'right': None}
+
+                if 'enemy' not in tile_data:
+                    tile_data['enemy'] = None
+
+                if 'wall' not in tile_data:
+                    tile_data['wall'] = None
+
+                if 'item' not in tile_data:
+                    tile_data['item'] = None
+
+                if tile_data['type'] == 'floor' and 'texture' not in tile_data:
+                    tile_data['texture'] = 'grass_tile1.png'
+
+    def load_custom_texture(self, filename):
+        if filename not in self.custom_textures:
+            if not filename.lower().endswith(('.png', '.jpg', '.jpeg', '.bmp', '.gif')):
+                filename = f"{filename}.png"
+
+            texture_path = self.conf.ASSETS_FOLDER / 'images' / 'textures' / filename
+            if texture_path.exists():
+                texture = arcade.load_texture(texture_path)
+                self.custom_textures[filename] = texture
+            else:
+                base_name = Path(filename).stem
+                for ext in ['.png', '.jpg', '.jpeg', '.bmp', '.gif']:
+                    alt_path = self.conf.ASSETS_FOLDER / 'images' / 'textures' / f"{base_name}{ext}"
+                    if alt_path.exists():
+                        texture = arcade.load_texture(alt_path)
+                        self.custom_textures[filename] = texture
+                        return texture
+                return None
+        return self.custom_textures.get(filename)
+
+    def select_custom_tile(self, event):
+        root = tk.Tk()
+        root.withdraw()
+
+        file_path = filedialog.askopenfilename(
+            title="Выберите изображение для тайла",
+            filetypes=[
+                ("Изображения", "*.png *.jpg *.jpeg *.bmp *.gif"),
+                ("Все файлы", "*.*")
+            ]
+        )
+
+        if file_path:
+            texture = arcade.load_texture(file_path)
+            self.custom_tile_texture = texture
+            filename = Path(file_path).name
+            self.custom_tile_name = filename
+            self.custom_textures[filename] = texture
+
+            self.status_text = f'Выбран тайл: {filename}'
+            self.status_timer = 2.0
+
+        root.destroy()
+
+    def open_dialog_editor(self, tile_x, tile_y):
+        tile_data = self.world_data['floor'][tile_y][tile_x]
+        if not tile_data.get('enemy'):
+            return
+
+        enemy_data = tile_data['enemy']
+
+        self.dialog_window = arcade.gui.UIManager()
+        dialog_box = arcade.gui.UIBoxLayout(vertical=True)
+
+        title_label = arcade.gui.UILabel(
+            text=f"Редактор диалогов врага",
+            width=400,
+            height=30,
+            font_size=16,
+            align="center",
+            text_color=arcade.color.WHITE
+        )
+        dialog_box.add(title_label)
+
+        dialog_text = ""
+        if 'data' in enemy_data and 'dialog' in enemy_data['data']:
+            dialog_dict = enemy_data['data']['dialog']
+            lines = []
+            for key in sorted(dialog_dict.keys()):
+                lines.append(f"{key}: {dialog_dict[key]}")
+            dialog_text = "\n".join(lines)
+
+        self.dialog_input = arcade.gui.UIInputText(
+            text=dialog_text,
+            width=400,
+            height=200,
+            multiline=True
+        )
+        dialog_box.add(self.dialog_input)
+
+        hint_label = arcade.gui.UILabel(
+            text="Формат: номер: текст\nПример:\n1: Привет!\n2: Как дела?",
+            width=400,
+            height=60,
+            font_size=12,
+            align="left",
+            text_color=arcade.color.LIGHT_GRAY
+        )
+        dialog_box.add(hint_label)
+
+        button_row = arcade.gui.UIBoxLayout(vertical=False, space_between=10)
+        save_btn = arcade.gui.UIFlatButton(text="Сохранить", width=120)
+        cancel_btn = arcade.gui.UIFlatButton(text="Отмена", width=120)
+        clear_btn = arcade.gui.UIFlatButton(text="Очистить", width=120)
+
+        def save_dialog(event):
+            dialog_text = self.dialog_input.text.strip()
+            dialog_dict = {}
+
+            if dialog_text:
+                lines = dialog_text.split('\n')
+                for line in lines:
+                    line = line.strip()
+                    if ':' in line:
+                        parts = line.split(':', 1)
+                        key = parts[0].strip()
+                        value = parts[1].strip()
+                        if key and value:
+                            dialog_dict[key] = value
+
+            if 'data' not in enemy_data:
+                enemy_data['data'] = {}
+
+            if dialog_dict:
+                enemy_data['data']['dialog'] = dialog_dict
+            elif 'dialog' in enemy_data['data']:
+                del enemy_data['data']['dialog']
+
+            self.editing_dialog = False
+            self.dialog_window.disable()
+            self.dialog_window = None
+
+            self.status_text = f'Диалог сохранён'
+            self.status_timer = 2.0
+
+        def cancel_dialog(event):
+            self.editing_dialog = False
+            self.dialog_window.disable()
+            self.dialog_window = None
+
+        def clear_dialog(event):
+            self.dialog_input.text = ""
+
+        save_btn.on_click = save_dialog
+        cancel_btn.on_click = cancel_dialog
+        clear_btn.on_click = clear_dialog
+
+        button_row.add(save_btn)
+        button_row.add(clear_btn)
+        button_row.add(cancel_btn)
+        dialog_box.add(button_row)
+
+        modal = arcade.gui.UIAnchorLayout()
+        modal.add(dialog_box)
+        self.dialog_window.add(modal)
+        self.dialog_window.enable()
+        self.editing_dialog = True
+        self.enemy_tile = (tile_x, tile_y)
 
     def set_edit_mode(self, mode):
         self.edit_mode = mode
@@ -132,11 +376,6 @@ class Main(arcade.View):
         self.portal_container.visible = (mode == 'portal')
         self.enemy_container.visible = (mode == 'enemy')
 
-    def select_portal(self, portal_id):
-        self.selected_portal = portal_id
-        self.status_text = f'портал: {portal_id}'
-        self.status_timer = 2.0
-
     def select_tile(self, tile_type):
         self.selected_tile = tile_type
         self.status_text = f'тайл: {tile_type}'
@@ -144,12 +383,14 @@ class Main(arcade.View):
         self.floor_btn.disabled = (tile_type == 'floor')
         self.wall_btn.disabled = (tile_type == 'wall')
         self.void_btn.disabled = (tile_type == 'void')
+        self.item_btn.disabled = (tile_type == 'item')
 
     def setup(self):
         self.floor_sprites.clear()
         self.wall_sprites.clear()
         self.portal_sprites.clear()
         self.enemy_sprites.clear()
+        self.item_sprites.clear()
 
         width = self.world_data['width']
         height = self.world_data['height']
@@ -159,34 +400,152 @@ class Main(arcade.View):
                 tile_data = self.world_data['floor'][y][x]
                 tile_type = tile_data['type']
 
-                if tile_type != 'void':
-                    tile = arcade.Sprite(self.load_texture('grass_tile1'))
-                    tile.center_x = x * self.tile_size + self.tile_size // 2
-                    tile.center_y = y * self.tile_size + self.tile_size // 2
-                    tile.tile_x = x
-                    tile.tile_y = y
-                    tile.tile_type = 'floor'
-                    self.floor_sprites.append(tile)
+                if tile_type == 'floor':
+                    texture_name = tile_data.get('texture', 'grass_tile1.png')
 
-                if tile_type == 'wall':
-                    wall = arcade.Sprite(self.load_texture('portal'))
-                    wall.center_x = x * self.tile_size + self.tile_size // 2
-                    wall.center_y = y * self.tile_size + self.tile_size // 2
-                    wall.tile_x = x
-                    wall.tile_y = y
-                    wall.tile_type = 'wall'
-                    self.wall_sprites.append(wall)
+                    if not texture_name.lower().endswith('.png'):
+                        texture_name = f"{texture_name}.png"
+
+                    texture = None
+
+                    if texture_name == 'grass_tile1.png':
+                        texture = self.load_texture('grass_tile1')
+                    elif texture_name in self.custom_textures:
+                        texture = self.custom_textures[texture_name]
+                    else:
+                        texture = self.load_custom_texture(texture_name)
+
+                    if texture is None:
+                        texture = self.load_texture('grass_tile1')
+
+                    floor_sprite = arcade.Sprite(
+                        texture,
+                        center_x=x * self.tile_size + self.tile_size // 2,
+                        center_y=y * self.tile_size + self.tile_size // 2,
+                        scale=self.tile_size / texture.width
+                    )
+
+                    floor_sprite.tile_x = x
+                    floor_sprite.tile_y = y
+                    floor_sprite.tile_type = 'floor'
+                    self.floor_sprites.append(floor_sprite)
+
+                elif tile_type == 'void':
+                    pass
+
+                if tile_data.get('wall'):
+                    wall_data = tile_data['wall']
+
+                    wall_texture = None
+                    if wall_data.get('texture'):
+                        texture_name = wall_data['texture']
+                        if not texture_name.lower().endswith('.png'):
+                            texture_name = f"{texture_name}.png"
+
+                        if texture_name in self.custom_textures:
+                            wall_texture = self.custom_textures[texture_name]
+                        else:
+                            wall_texture = self.load_custom_texture(texture_name)
+
+                    if wall_texture:
+                        wall_sprite = arcade.Sprite(
+                            wall_texture,
+                            center_x=x * self.tile_size + self.tile_size // 2,
+                            center_y=y * self.tile_size + self.tile_size // 2
+                        )
+                    else:
+                        wall_sprite = arcade.SpriteSolidColor(
+                            self.tile_size, self.tile_size,
+                            arcade.color.DARK_GRAY
+                        )
+                        wall_sprite.center_x = x * self.tile_size + self.tile_size // 2
+                        wall_sprite.center_y = y * self.tile_size + self.tile_size // 2
+
+                    wall_sprite.tile_x = x
+                    wall_sprite.tile_y = y
+                    wall_sprite.wall_type = 'wall'
+                    self.wall_sprites.append(wall_sprite)
+
+                if tile_data.get('item'):
+                    item_data = tile_data['item']
+                    item_texture = None
+                    if item_data.get('texture'):
+                        texture_name = item_data['texture']
+                        if not texture_name.lower().endswith('.png'):
+                            texture_name = f"{texture_name}.png"
+
+                        if texture_name in self.custom_textures:
+                            item_texture = self.custom_textures[texture_name]
+                        else:
+                            item_texture = self.load_custom_texture(texture_name)
+
+                    if item_texture:
+                        item_sprite = arcade.Sprite(
+                            item_texture,
+                            center_x=x * self.tile_size + self.tile_size // 2,
+                            center_y=y * self.tile_size + self.tile_size // 2,
+                            scale=(self.tile_size - 15) / item_texture.width
+                        )
+                    else:
+                        item_sprite = arcade.SpriteSolidColor(
+                            self.tile_size - 15, self.tile_size - 15,
+                            arcade.color.GOLD
+                        )
+                        item_sprite.center_x = x * self.tile_size + self.tile_size // 2
+                        item_sprite.center_y = y * self.tile_size + self.tile_size // 2
+
+                    item_sprite.tile_x = x
+                    item_sprite.tile_y = y
+                    item_sprite.item_type = 'item'
+                    self.item_sprites.append(item_sprite)
+
+                if tile_data.get('enemy') and tile_type != 'void' and not tile_data.get('wall') and not tile_data.get('item'):
+                    enemy_data = tile_data['enemy']
+                    enemy_type = enemy_data.get('type', 'basic')
+
+                    enemy_texture = None
+                    if enemy_data.get('texture'):
+                        texture_name = enemy_data['texture']
+                        if not texture_name.lower().endswith('.png'):
+                            texture_name = f"{texture_name}.png"
+
+                        if texture_name in self.custom_textures:
+                            enemy_texture = self.custom_textures[texture_name]
+                        else:
+                            enemy_texture = self.load_custom_texture(texture_name)
+
+                    if enemy_texture:
+                        enemy_sprite = arcade.Sprite(
+                            enemy_texture,
+                            center_x=x * self.tile_size + self.tile_size // 2,
+                            center_y=y * self.tile_size + self.tile_size // 2,
+                            scale=(self.tile_size + 5) / enemy_texture.width
+                        )
+                    else:
+                        if enemy_type == 'basic':
+                            enemy_color = arcade.color.RED
+                        elif enemy_type == 'fast':
+                            enemy_color = arcade.color.ORANGE
+                        elif enemy_type == 'strong':
+                            enemy_color = arcade.color.PURPLE
+                        else:
+                            enemy_color = arcade.color.GRAY
+
+                        enemy_sprite = arcade.SpriteSolidColor(
+                            self.tile_size - 10, self.tile_size - 10,
+                            enemy_color
+                        )
+                        enemy_sprite.center_x = x * self.tile_size + self.tile_size // 2
+                        enemy_sprite.center_y = y * self.tile_size + self.tile_size // 2
+
+                    enemy_sprite.tile_x = x
+                    enemy_sprite.tile_y = y
+                    enemy_sprite.enemy_type = enemy_type
+                    self.enemy_sprites.append(enemy_sprite)
 
                 for side, portal_id in tile_data['portals'].items():
                     if portal_id is not None:
                         self.add_portal_sprite(x, y, side, portal_id)
-
-        if 'enemies' in self.world_data:
-            for enemy_data in self.world_data['enemies']:
-                x = enemy_data['x']
-                y = enemy_data['y']
-                enemy_type = enemy_data.get('type', 'basic')
-                self.add_enemy_sprite(x, y, enemy_type)
 
     def add_portal_sprite(self, x, y, side, portal_id):
         color = self.portal_colors[portal_id % len(self.portal_colors)]
@@ -216,24 +575,6 @@ class Main(arcade.View):
         portal_sprite.tile_y = y
         self.portal_sprites.append(portal_sprite)
 
-    def add_enemy_sprite(self, x, y, enemy_type='basic'):
-        if enemy_type == 'basic':
-            enemy_color = arcade.color.RED
-        elif enemy_type == 'fast':
-            enemy_color = arcade.color.ORANGE
-        elif enemy_type == 'strong':
-            enemy_color = arcade.color.PURPLE
-        else:
-            enemy_color = arcade.color.GRAY
-
-        enemy_sprite = arcade.SpriteSolidColor(self.tile_size - 10, self.tile_size - 10, enemy_color)
-        enemy_sprite.center_x = x * self.tile_size + self.tile_size // 2
-        enemy_sprite.center_y = y * self.tile_size + self.tile_size // 2
-        enemy_sprite.tile_x = x
-        enemy_sprite.tile_y = y
-        enemy_sprite.enemy_type = enemy_type
-        self.enemy_sprites.append(enemy_sprite)
-
     def load_texture(self, name='grass_tile1'):
         if name not in self.tile_texture_cache:
             texture = self.conf.assets.texture(name)
@@ -252,11 +593,25 @@ class Main(arcade.View):
 
         self.floor_sprites.draw(pixelated=True)
         self.wall_sprites.draw(pixelated=True)
+        self.item_sprites.draw(pixelated=True)
         self.portal_sprites.draw(pixelated=True)
         self.enemy_sprites.draw(pixelated=True)
 
         width = self.world_data['width']
         height = self.world_data['height']
+
+        for y in range(height):
+            for x in range(width):
+                tile_data = self.world_data['floor'][y][x]
+                if tile_data.get('enemy'):
+                    enemy_data = tile_data['enemy']
+                    if 'data' in enemy_data and 'dialog' in enemy_data['data']:
+                        indicator_x = x * self.tile_size + self.tile_size - 8
+                        indicator_y = y * self.tile_size + self.tile_size - 8
+                        arcade.draw_circle_filled(
+                            indicator_x, indicator_y, 4,
+                            arcade.color.CYAN
+                        )
 
         if self.edit_mode == 'portal':
             for x in range(width + 1):
@@ -267,13 +622,18 @@ class Main(arcade.View):
                 start_y = y * self.tile_size
                 arcade.draw_line(0, start_y, width * self.tile_size, start_y, arcade.color.DARK_GRAY, 1)
         else:
-            arcade.draw_lbwh_rectangle_outline(0, 0, width * self.tile_size, height * self.tile_size, arcade.color.DARK_GRAY, 2)
+            arcade.draw_lbwh_rectangle_outline(0, 0, width * self.tile_size, height * self.tile_size,
+                                               arcade.color.DARK_GRAY, 2)
 
         self.ui.draw()
 
+        if self.editing_dialog and self.dialog_window:
+            self.dialog_window.draw()
+
         if self.status_timer > 0:
             screen_x, screen_y = self.camera.position
-            arcade.draw_text(self.status_text, screen_x - self.width // 2 + 10, screen_y + self.height // 2 - 30, arcade.color.WHITE, 14)
+            arcade.draw_text(self.status_text, screen_x - self.width // 2 + 10, screen_y + self.height // 2 - 30,
+                             arcade.color.WHITE, 14)
 
         if self.hover_tile:
             tile_x, tile_y = self.hover_tile
@@ -282,7 +642,7 @@ class Main(arcade.View):
                 bottom = tile_y * self.tile_size
                 arcade.draw_lbwh_rectangle_outline(left, bottom, self.tile_size, self.tile_size, arcade.color.YELLOW, 2)
 
-    def on_update(self, delta_time: float):
+    def on_update(self, delta_time):
         if self.shadertoy:
             self.shadertoy.program['time'] = int(time.time() * 10000)
 
@@ -321,12 +681,14 @@ class Main(arcade.View):
             self.select_tile('wall')
         elif key == arcade.key.KEY_3:
             self.select_tile('void')
+        elif key == arcade.key.KEY_4:
+            self.select_tile('item')
 
-    def on_key_release(self, symbol: int, modifiers: int):
+    def on_key_release(self, symbol, modifiers):
         if symbol in self.keys:
             self.keys.remove(symbol)
 
-    def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
+    def on_mouse_motion(self, x, y, dx, dy):
         world_pos = self.camera.unproject((x, y))
 
         if world_pos is None:
@@ -343,7 +705,10 @@ class Main(arcade.View):
         else:
             self.hover_tile = None
 
-    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
+    def on_mouse_press(self, x, y, button, modifiers):
+        if self.editing_dialog:
+            return
+
         world_pos = self.camera.unproject((x, y))
 
         if world_pos is None:
@@ -365,21 +730,87 @@ class Main(arcade.View):
                 if self.selected_tile == 'void':
                     tile_data['type'] = 'void'
                     tile_data['portals'] = {'up': None, 'down': None, 'left': None, 'right': None}
+                    tile_data['wall'] = None
+                    tile_data['enemy'] = None
+                    tile_data['item'] = None
+                    if 'texture' in tile_data:
+                        del tile_data['texture']
+
                 elif self.selected_tile == 'floor':
-                    tile_data['type'] = 'floor'
                     if current_type == 'void':
                         tile_data['portals'] = {'up': None, 'down': None, 'left': None, 'right': None}
+                        tile_data['texture'] = 'grass_tile1.png'
+
+                    tile_data['type'] = 'floor'
+
+                    if self.custom_tile_texture and self.custom_tile_name:
+                        tile_data['texture'] = self.custom_tile_name
+                        if not self.custom_tile_name.lower().endswith('.png'):
+                            tile_data['texture'] = f"{self.custom_tile_name}.png"
+                    elif 'texture' not in tile_data:
+                        tile_data['texture'] = 'grass_tile1.png'
+
                 elif self.selected_tile == 'wall':
-                    tile_data['type'] = 'wall'
                     if current_type == 'void':
-                        tile_data['portals'] = {'up': None, 'down': None, 'left': None, 'right': None}
+                        self.status_text = 'Пол верни'
+                        self.status_timer = 2.0
+                        return
+
+                    if tile_data.get('enemy'):
+                        self.status_text = 'Баран, так незя'
+                        self.status_timer = 2.0
+                        return
+
+                    if tile_data.get('wall'):
+                        tile_data['wall'] = None
+                    else:
+                        wall_data = {
+                            'type': 'wall',
+                            'texture': None
+                        }
+                        if self.custom_tile_texture and self.custom_tile_name:
+                            wall_data['texture'] = self.custom_tile_name
+                            if not self.custom_tile_name.lower().endswith('.png'):
+                                wall_data['texture'] = f"{self.custom_tile_name}.png"
+
+                        tile_data['wall'] = wall_data
+
+                elif self.selected_tile == 'item':
+                    if current_type == 'void':
+                        self.status_text = 'Пол верни'
+                        self.status_timer = 2.0
+                        return
+
+                    if tile_data.get('enemy'):
+                        self.status_text = 'На предмет нельзя поставить врага'
+                        self.status_timer = 2.0
+                        return
+
+                    if tile_data.get('wall'):
+                        self.status_text = 'На предмет нельзя поставить стену'
+                        self.status_timer = 2.0
+                        return
+
+                    if tile_data.get('item'):
+                        tile_data['item'] = None
+                    else:
+                        item_data = {
+                            'type': 'item',
+                            'texture': None
+                        }
+                        if self.custom_tile_texture and self.custom_tile_name:
+                            item_data['texture'] = self.custom_tile_name
+                            if not self.custom_tile_name.lower().endswith('.png'):
+                                item_data['texture'] = f"{self.custom_tile_name}.png"
+
+                        tile_data['item'] = item_data
+
                 self.setup()
+
             elif button == arcade.MOUSE_BUTTON_RIGHT:
-                if current_type == 'wall':
-                    tile_data['type'] = 'floor'
-                else:
-                    tile_data['type'] = 'wall'
-                self.setup()
+                if 'texture' in tile_data and tile_data['type'] == 'floor':
+                    tile_data['texture'] = 'grass_tile1.png'
+                    self.setup()
 
         elif self.edit_mode == 'portal':
             rel_x = world_pos.x % self.tile_size
@@ -414,35 +845,49 @@ class Main(arcade.View):
         elif self.edit_mode == 'enemy':
             if button == arcade.MOUSE_BUTTON_LEFT:
                 if current_type != 'void':
-                    if 'enemies' not in self.world_data:
-                        self.world_data['enemies'] = []
+                    if tile_data.get('wall'):
+                        self.status_text = 'Ты куку, так незя'
+                        self.status_timer = 2.0
+                        return
 
-                    enemy_exists = False
-                    for enemy in self.world_data['enemies']:
-                        if enemy['x'] == tile_x and enemy['y'] == tile_y:
-                            enemy_exists = True
-                            break
+                    if tile_data.get('item'):
+                        self.status_text = 'На предмет нельзя поставить врага'
+                        self.status_timer = 2.0
+                        return
 
-                    if not enemy_exists:
-                        self.world_data['enemies'].append({
-                            'x': tile_x,
-                            'y': tile_y,
+                    if not tile_data.get('enemy'):
+                        enemy_data = {
                             'type': 'basic',
                             'health': 100,
                             'damage': 10,
+                            'hitbox': [0.1, 0.1, 0.8, 0.8],
                             'data': {}
-                        })
+                        }
+
+                        if self.custom_tile_texture and self.custom_tile_name:
+                            enemy_data['texture'] = self.custom_tile_name
+                            if not self.custom_tile_name.lower().endswith('.png'):
+                                enemy_data['texture'] = f"{self.custom_tile_name}.png"
+
+                        tile_data['enemy'] = enemy_data
                         self.setup()
+                    else:
+                        tile_data['enemy'] = None
+                        self.setup()
+                else:
+                    self.status_text = 'На пустоте нельзя ставить врага!'
+                    self.status_timer = 2.0
+
             elif button == arcade.MOUSE_BUTTON_RIGHT:
-                if 'enemies' in self.world_data:
-                    new_enemies = []
-                    for enemy in self.world_data['enemies']:
-                        if not (enemy['x'] == tile_x and enemy['y'] == tile_y):
-                            new_enemies.append(enemy)
-                    self.world_data['enemies'] = new_enemies
+                if tile_data.get('enemy'):
+                    tile_data['enemy'] = None
                     self.setup()
 
-    def on_mouse_scroll(self, x: float, y: float, scroll_x: float, scroll_y: float):
+            elif button == arcade.MOUSE_BUTTON_MIDDLE:
+                if tile_data.get('enemy'):
+                    self.open_dialog_editor(tile_x, tile_y)
+
+    def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
         if scroll_y == 0:
             return
 
@@ -478,37 +923,41 @@ class Main(arcade.View):
                 'height': height,
                 'export_date': time.strftime('%Y-%m-%d %H:%M:%S')
             },
-            'tiles': [],
-            'objects': []
+            'tiles': []
         }
 
-        for x in range(width):
-            column = []
-            for y in range(height):
+        for y in range(height):
+            row = []
+            for x in range(width):
                 tile = self.world_data['floor'][y][x]
-                column.append({
+                tile_export = {
                     'type': tile['type'],
-                    'portals': tile['portals']
-                })
-            export_data['tiles'].append(column)
-
-        if 'enemies' in self.world_data:
-            for enemy_data in self.world_data['enemies']:
-                obj = {
-                    'pos_x': float(enemy_data['x'] + 0.5),
-                    'pos_y': float(enemy_data['y'] + 0.5),
-                    'image': f'enemy_{enemy_data.get("type", "basic")}',
-                    'scale': [1.0, 1.0],
-                    'hitbox': [0.1, 0.1, 0.8, 0.8],
-                    'data': {
-                        'type': 'enemy',
-                        'enemy_type': enemy_data.get('type', 'basic'),
-                        'health': enemy_data.get('health', 100),
-                        'damage': enemy_data.get('damage', 10),
-                        **enemy_data.get('data', {})
-                    }
+                    'portals': tile['portals'].copy()
                 }
-                export_data['objects'].append(obj)
+
+                if tile['type'] == 'floor':
+                    tile_export['texture'] = tile.get('texture', 'grass_tile1.png')
+                elif tile['type'] == 'void':
+                    pass
+
+                if tile.get('wall'):
+                    wall_data = tile['wall'].copy()
+                    tile_export['wall'] = wall_data
+
+                if tile.get('item'):
+                    item_data = tile['item'].copy()
+                    tile_export['item'] = item_data
+
+                if tile.get('enemy'):
+                    enemy_data = tile['enemy'].copy()
+                    if 'x' in enemy_data:
+                        del enemy_data['x']
+                    if 'y' in enemy_data:
+                        del enemy_data['y']
+                    tile_export['enemy'] = enemy_data
+
+                row.append(tile_export)
+            export_data['tiles'].append(row)
 
         world_name = self.world_data['name']
         safe_name = ''.join(c for c in world_name if c.isalnum() or c in (' ', '_')).rstrip()
@@ -518,7 +967,7 @@ class Main(arcade.View):
         export_path = Path(f'{safe_name}.json')
 
         with open(export_path, 'w', encoding='utf-8') as f:
-            json.dump(export_data, f, indent=2, ensure_ascii=False)
+            json.dump({'template_world': export_data}, f, indent=2, ensure_ascii=False)
 
         self.status_text = f'экспорт: {export_path.absolute()}'
         self.status_timer = 3.0
@@ -532,7 +981,7 @@ class Main(arcade.View):
     def on_hide_view(self):
         self.ui.disable()
 
-    def on_resize(self, width: int, height: int):
+    def on_resize(self, width, height):
         super().on_resize(width, height)
         shader_file_path = self.conf.SHADER_FOLDER / 'background.glsl'
         window_size = self.window.get_size()

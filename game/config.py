@@ -174,6 +174,7 @@ class Enemy:
         self.health = health
         self.shadows = ['figure_1', 'figure_2', 'figure_3', 'figure_4']
         self.speed = 1
+        self.name = 'Слайм'
 
 
 class Player:
