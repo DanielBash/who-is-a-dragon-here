@@ -65,32 +65,57 @@ class PathConfig:
 class AssetsConfig:
     def __init__(self, paths: PathConfig):
         self.paths = paths
+        self._cache = {}
 
     # - получение иконки
     def icon(self, name: str) -> pyglet.image.AbstractImage:
-        image_path = self.paths.short('icon', name)
+        cache_key = f"icon:{name}"
 
-        return pyglet.image.load(str(image_path))
+        if cache_key not in self._cache:
+            image_path = self.paths.short('icon', name)
+            self._cache[cache_key] = pyglet.image.load(str(image_path))
+
+        return self._cache[cache_key]
 
     # - получение музыки
     def music(self, name: str, streaming: bool = True) -> arcade.Sound:
-        music_path = self.paths.short('music', name)
+        cache_key = f"music:{name}:{streaming}"
 
-        return arcade.load_sound(music_path, streaming=streaming)
+        if cache_key not in self._cache:
+            music_path = self.paths.short('music', name)
+            self._cache[cache_key] = arcade.load_sound(music_path, streaming=streaming)
+
+        return self._cache[cache_key]
 
     # - получение звукового эффекта
     def effect(self, name: str, streaming: bool = True) -> arcade.Sound:
-        music_path = self.paths.short('effect', name)
+        cache_key = f"effect:{name}:{streaming}"
 
-        return arcade.load_sound(music_path, streaming=streaming)
+        if cache_key not in self._cache:
+            effect_path = self.paths.short('effect', name)
+            self._cache[cache_key] = arcade.load_sound(effect_path, streaming=streaming)
+
+        return self._cache[cache_key]
 
     # - получение текстуры
     def texture(self, name: str) -> arcade.Texture:
-        return arcade.load_texture(self.paths.short('texture', name))
+        cache_key = f"texture:{name}"
+
+        if cache_key not in self._cache:
+            self._cache[cache_key] = arcade.load_texture(self.paths.short('texture', name))
+
+        return self._cache[cache_key]
 
     # - получение шрифта
     def font(self, name: str) -> str:
-        arcade.load_font(self.paths.short('font', name))
+        cache_key = f"font:{name}"
+
+        if cache_key not in self._cache:
+            font_path = self.paths.short('font', name)
+            arcade.load_font(font_path)
+            self._cache[cache_key] = font_path
+
+        return self._cache[cache_key]
 
 
 # -- обработка сохранений
@@ -146,6 +171,7 @@ class MusicConfig:
 
         self.playing_name = ''
         self.music = None
+        self._effects_cache = {}
 
     # -- выключение предыдущей музыки, если нужна другая, запуск следующей
     def ensure_playing(self, name, loop=True):
@@ -162,9 +188,14 @@ class MusicConfig:
             self.music = None
             self.playing_name = ''
 
-    # -- звуковые эффекты
+    # -- звуковые эффекты с простым кэшированием
     def play_sound(self, name):
-        effect = self.assets.effect(name, streaming=False)
+        if name not in self._effects_cache:
+            effect = self.assets.effect(name, streaming=False)
+            self._effects_cache[name] = effect
+        else:
+            effect = self._effects_cache[name]
+
         return arcade.play_sound(effect), effect
 
 
