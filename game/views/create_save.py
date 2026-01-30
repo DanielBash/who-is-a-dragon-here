@@ -194,4 +194,4 @@ class Main(arcade.View):
         self.window.show_view(next_view)
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
-        self.mouse.position = (x, y)
+        self.mouse.position = self.window.current_camera.unproject((x, y))

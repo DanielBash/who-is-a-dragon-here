@@ -176,4 +176,4 @@ class Main(arcade.View):
         self.shadertoy = Shadertoy.create_from_file(window_size, shader_file_path)
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
-        self.mouse.position = (x, y)
+        self.mouse.position = self.window.current_camera.unproject((x, y))

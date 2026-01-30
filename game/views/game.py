@@ -153,7 +153,7 @@ class Main(arcade.View):
         self.tile_sprite_list = arcade.SpriteList()
         self.entities_sprite_list = arcade.SpriteList()
 
-        self.player = Player(50, 50)
+        self.player = Player(0, 0)
         self.conf.player = self.player
 
         self.prev_player_pos = [self.player.x, self.player.y]
@@ -207,6 +207,13 @@ class Main(arcade.View):
         self.update_textures()
 
     def update_textures(self):
+        def cost_to_alpha(cost, mcost):
+            cost = max(0, min(cost, mcost))
+            min_alpha = 100
+            max_alpha = 255
+
+            return max_alpha - (cost / mcost) * (max_alpha - min_alpha)
+
         if self.grid_data is None or [self.player.x, self.player.y] != self.prev_player_pos:
             self.grid_data = priority_flood(self.player.x, self.player.y)
             self.prev_player_pos = [self.player.x, self.player.y]
@@ -217,11 +224,17 @@ class Main(arcade.View):
             for sx in range(VW):
                 if (sx, VH - 1 - sy) in mapping:
                     wx, wy, t, cost = mapping[(sx, VH - 1 - sy)]
+                    mcost = 10
+                    self.display_tiles_data[sy][sx].alpha = cost_to_alpha(cost, mcost)
+                    if 'texture' in t and '.' in t['texture']:
+                        t['texture'] = t['texture'].split('.')[0]
+                    if t['type'] not in ['floor', 'void']:
+                        print('!!')
                     if t['type'] != 'void':
-                        if self.display_tiles_data[sy][sx].curr_tex != t['type']:
-                            self.display_tiles_data[sy][sx].texture = self.conf.assets.texture(t['type'])
+                        if self.display_tiles_data[sy][sx].curr_tex != t['texture']:
+                            self.display_tiles_data[sy][sx].texture = self.conf.assets.texture(t['texture'])
                             self.display_tiles_data[sy][sx].visible = True
-                            self.display_tiles_data[sy][sx].curr_tex = t['type']
+                            self.display_tiles_data[sy][sx].curr_tex = t['texture']
                     else:
                         self.display_tiles_data[sy][sx].visible = False
                         self.display_tiles_data[sy][sx].curr_tex = 'void'

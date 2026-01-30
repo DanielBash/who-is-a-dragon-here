@@ -1,16 +1,15 @@
 """СЦЕНА: Игра
  - Основной геймплей"""
-import copy
+
 # -- импорт модулей
-import math, json, heapq, time
-from math import sin
+import math, time
 import random
 
 import arcade
 import arcade.gui
 import arcade.gui.widgets.buttons
 import arcade.gui.widgets.layout
-from arcade.gui import UIStyleBase, UIAnchorLayout, Property, UISpace, bind
+from arcade.gui import UIStyleBase, Property, UISpace, bind
 from arcade.types import Color
 
 
@@ -63,14 +62,27 @@ class Progressbar(arcade.gui.UIAnchorLayout):
         self._bar.visible = self.value > 0
 
 
-class Player:
-    def __init__(self, x=0, y=0, inventory=None, health=100):
-        if inventory is None:
-            inventory = []
-        self.x = x
-        self.y = y
-        self.inventory = inventory
-        self.health = health
+class PlayerSprite(arcade.Sprite):
+    def __init__(self, walking_anim: list):
+        super().__init__()
+
+        self.walking = False
+
+        self.walking_animation = walking_anim
+
+        self.local_time = 0
+        self.frame_duration = 0.1
+
+    def update_animation(self, delta_time: float = 1 / 60, *args, **kwargs) -> None:
+        super().update_animation()
+
+        self.local_time += delta_time
+
+        if self.walking:
+            frame = (self.local_time // self.frame_duration) % len(self.walking_animation)
+            self.texture = self.walking_animation[math.floor(frame)]
+        else:
+            self.texture = self.walking_animation[0]
 
 
 # -- класс сцены
@@ -92,7 +104,7 @@ class Main(arcade.View):
 
         self.button_row = arcade.gui.UIBoxLayout(space_between=10, vertical=False)
         self.items_row = arcade.gui.UIBoxLayout(space_between=10, vertical=False)
-        self.enemy_name_label = arcade.gui.UILabel(font_size=20, text=self.conf.enemy.name)
+        self.enemy_name_label = arcade.gui.UILabel(font_size=25, text=self.conf.enemy.name)
 
         self.fight_button = arcade.gui.UITextureButton(
             text='Ударить',
@@ -131,20 +143,42 @@ class Main(arcade.View):
 
         self.mouse_sprite_list = arcade.SpriteList()
         self.background_sprite_list = arcade.SpriteList()
+        self.attack_walls_list = arcade.SpriteList()
 
         self.mouse = arcade.Sprite(path_or_texture=self.conf.assets.texture('cursor'), scale=0.1)
-        self.parallax_sprites = [arcade.Sprite(path_or_texture=self.conf.assets.texture('parallax_layer_0')),
-                                 arcade.Sprite(path_or_texture=self.conf.assets.texture('parallax_layer_1'))]
+        self.parallax_sprites = [arcade.Sprite(path_or_texture=self.conf.assets.texture(i)) for i in
+                                 self.conf.enemy.background]
         self.enemy_sprite = arcade.Sprite(path_or_texture=self.conf.assets.texture(self.conf.enemy.texture))
         self.enemy_shadow = arcade.Sprite(
             path_or_texture=self.conf.assets.texture(random.choice(self.conf.enemy.shadows)))
         self.aim = arcade.Sprite(path_or_texture=self.conf.assets.texture('aim'))
+        self.boundary_box = arcade.Sprite(
+            path_or_texture=self.conf.assets.texture('boundary_box', hitbox_algo=arcade.hitbox.PymunkHitBoxAlgorithm()))
+        self.boundary_box_1 = arcade.Sprite(path_or_texture=self.conf.assets.texture('boundary_box_1',
+                                                                                     hitbox_algo=arcade.hitbox.PymunkHitBoxAlgorithm()))
+        self.boundary_box_2 = arcade.Sprite(path_or_texture=self.conf.assets.texture('boundary_box_2',
+                                                                                     hitbox_algo=arcade.hitbox.PymunkHitBoxAlgorithm()))
+        self.boundary_box_3 = arcade.Sprite(path_or_texture=self.conf.assets.texture('boundary_box_3',
+                                                                                     hitbox_algo=arcade.hitbox.PymunkHitBoxAlgorithm()))
+        self.player_sprite = PlayerSprite(
+            walking_anim=[
+                self.conf.assets.texture('knight_standing'),
+                self.conf.assets.texture('knight_walking_down_1'),
+                self.conf.assets.texture('knight_standing'),
+                self.conf.assets.texture('knight_walking_down_2'),
+            ],
+        )
 
         self.mouse_sprite_list.append(self.mouse)
         for i in self.parallax_sprites: self.background_sprite_list.append(i)
         self.background_sprite_list.append(self.enemy_sprite)
         self.background_sprite_list.append(self.enemy_shadow)
         self.background_sprite_list.append(self.aim)
+        self.attack_walls_list.append(self.boundary_box)
+        self.attack_walls_list.append(self.boundary_box_1)
+        self.attack_walls_list.append(self.boundary_box_2)
+        self.attack_walls_list.append(self.boundary_box_3)
+        self.background_sprite_list.append(self.player_sprite)
 
         # камеры
         self.cursor_camera = arcade.Camera2D()
@@ -154,7 +188,16 @@ class Main(arcade.View):
 
         self.items_opened = False
         self.kicking = False
+        self.attacking = False
+        self.attack = None
         self.enemy_knockback = 0
+
+        self.keys = set()
+
+        self.attack_physics_engine = arcade.PhysicsEngineSimple(
+            player_sprite=self.player_sprite,
+            walls=self.attack_walls_list
+        )
 
         self.setup()
 
@@ -162,8 +205,7 @@ class Main(arcade.View):
         self.on_resize(int(self.width), int(self.height))
 
     def setup(self):
-        self.update_item_select()
-        self.update_kick_menu()
+        self.update_gui()
 
     # -- отрисовка
     def on_draw(self):
@@ -174,6 +216,10 @@ class Main(arcade.View):
 
         self.clear()
         self.background_sprite_list.draw()
+        self.attack_walls_list.draw()
+
+        if self.attacking:
+            self.attack.draw_projectiles()
 
         self.ui.draw()
 
@@ -186,6 +232,7 @@ class Main(arcade.View):
 
     # -- обновление состояния
     def on_update(self, delta_time):
+        self.camera.position = self.boundary_box.position
         # updating parallax
         c = 0
         for i in self.parallax_sprites:
@@ -226,8 +273,64 @@ class Main(arcade.View):
             self.enemy_knockback -= delta_time * 4
             self.enemy_sprite.angle = self.enemy_knockback * 30
 
+        self.boundary_box.scale = self.scaling * 0.7
+        self.boundary_box_1.scale = self.boundary_box.scale
+        self.boundary_box_2.scale = self.boundary_box.scale
+        self.boundary_box_3.scale = self.boundary_box.scale
+
+        self.player_sprite.scale = self.scaling * 0.1
+
+        self.background_sprite_list.update_animation(delta_time)
+
+        if self.conf.KEYS['move_up'] in self.keys:
+            self.player_sprite.change_y = self.conf.player.speed * delta_time * self.scaling
+            self.player_sprite.walking = True
+        if self.conf.KEYS['move_down'] in self.keys:
+            self.player_sprite.change_y = -self.conf.player.speed * delta_time * self.scaling
+            self.player_sprite.walking = True
+        if self.conf.KEYS['move_right'] in self.keys:
+            self.player_sprite.change_x = self.conf.player.speed * delta_time * self.scaling
+            self.player_sprite.walking = True
+        if self.conf.KEYS['move_left'] in self.keys:
+            self.player_sprite.change_x = -self.conf.player.speed * delta_time * self.scaling
+            self.player_sprite.walking = True
+
+        if self.conf.KEYS['move_up'] not in self.keys and self.conf.KEYS['move_down'] not in self.keys:
+            self.player_sprite.change_y = 0
+
+        elif self.conf.KEYS['move_right'] not in self.keys and self.conf.KEYS['move_left'] not in self.keys:
+            self.player_sprite.change_x = 0
+
+        if self.conf.KEYS['move_up'] not in self.keys and self.conf.KEYS['move_down'] not in self.keys and \
+                self.conf.KEYS['move_right'] not in self.keys and self.conf.KEYS['move_left'] not in self.keys:
+            self.player_sprite.walking = False
+            self.player_sprite.change_x = 0
+            self.player_sprite.change_y = 0
+
+        if self.attacking and self.attack:
+            self.attack_physics_engine.update()
+            self.attack.update_projectiles()
+            self.attack.set_scale(self.scaling * 0.1)
+
+            try:
+                if time.time() > self.attack.stop_time:
+                    self.attacking = False
+                    self.update_gui()
+                    self.attack.clear()
+            except Exception as e:
+                pass
+
+            for i in arcade.check_for_collision_with_list(self.player_sprite, self.attack.projectiles):
+                i.remove_from_sprite_lists()
+                self.conf.player.health -= i.damage
+                if self.conf.player.health <= 0:
+                    self.load_loose()
+
+                arcade.play_sound(self.conf.assets.effect('air_punch'))
+
     # -- обработка ввода пользователя
     def on_key_press(self, key, key_modifiers):
+        self.keys.add(key)
         if key == self.conf.KEYS['fullscreen']:
             self.window.set_fullscreen(not self.window.fullscreen)
         if key == self.conf.KEYS['action'] and self.kicking:
@@ -236,8 +339,21 @@ class Main(arcade.View):
                 self.conf.enemy.health -= dmg
                 arcade.play_sound(self.conf.assets.effect('air_punch'))
                 self.enemy_knockback = 1
+
+                if self.conf.enemy.health <= 0:
+                    self.load_win()
+
             self.kicking = False
-            self.update_kick_menu()
+            self.attacking = True
+            self.attack = random.choice(self.conf.enemy.attacks)
+            self.attack.stop_time = random.randint(self.attack.attack_duration[0],
+                                                   self.attack.attack_duration[1]) + time.time()
+            self.player_sprite.position = self.boundary_box.position
+            self.update_gui()
+
+    def on_key_release(self, symbol: int, modifiers: int):
+        if symbol in self.keys:
+            self.keys.remove(symbol)
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
         wx, wy, _ = self.cursor_camera.unproject((x, y))
@@ -266,45 +382,63 @@ class Main(arcade.View):
         for i in self.matching_cameras:
             i.match_window()
 
-    def update_item_select(self):
-        self.items_row.clear()
-        c = 0
-        for i in self.conf.player.inventory:
-            use_item = arcade.gui.UITextureButton(texture=self.conf.assets.texture(i['texture']), scale=0.2)
-            use_item.on_click = lambda event, indx=c: self.use_item(indx)
-            self.items_row.add(use_item)
-            c += 1
-        if self.items_opened:
-            self.items_row.visible = True
-        else:
-            self.items_row.visible = False
-
     def open_items_menu(self, event):
         arcade.play_sound(self.conf.assets.effect('button_click'))
         self.items_opened = not self.items_opened
-        self.update_item_select()
+        self.update_gui()
 
-    def update_kick_menu(self):
+    def update_gui(self):
         if self.kicking:
             self.enemy_shadow.visible = True
             self.button_row.visible = False
             self.aim.visible = True
         else:
             self.enemy_shadow.visible = False
-            self.button_row.visible = True
             self.aim.visible = False
+        if self.items_opened:
+            self.items_row.visible = True
+            self.items_row.clear()
+            c = 0
+            for i in self.conf.player.inventory:
+                use_item = arcade.gui.UITextureButton(texture=self.conf.assets.texture(i['texture']), scale=0.2)
+                use_item.on_click = lambda event, indx=c: self.use_item(indx)
+                self.items_row.add(use_item)
+                c += 1
+        else:
+            self.items_row.visible = False
+        if not self.kicking and not self.attacking:
+            self.button_row.visible = True
+        if self.attacking:
+            self.boundary_box.visible = True
+            self.player_sprite.visible = True
+        else:
+            self.boundary_box.visible = False
+            self.player_sprite.visible = False
+
+        self.boundary_box_1.visible = self.boundary_box.visible
+        self.boundary_box_2.visible = self.boundary_box.visible
+        self.boundary_box_3.visible = self.boundary_box.visible
 
     def start_kicking(self, event):
         arcade.play_sound(self.conf.assets.effect('button_click'))
         self.kicking = True
         self.items_opened = False
-        self.update_item_select()
-        self.update_kick_menu()
+        self.update_gui()
 
     def use_item(self, id):
         item = self.conf.player.inventory[id]
         if item['type'] == 'heal':
             self.conf.player.health += item['heal']
-            arcade.play_sound(self.conf.assets.effect('impact'))
+            arcade.play_sound(self.conf.assets.effect('air_punch'))
         del self.conf.player.inventory[id]
-        self.update_item_select()
+        self.update_gui()
+
+    def load_loose(self):
+        from .game_over_menu import Main as play_view
+        next_view = play_view(self.conf)
+        self.window.show_view(next_view)
+
+    def load_win(self):
+        from .game import Main as play_view
+        next_view = play_view(self.conf)
+        self.window.show_view(next_view)

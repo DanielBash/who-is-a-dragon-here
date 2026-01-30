@@ -109,7 +109,7 @@ class Main(arcade.View):
         self.shadertoy.program['time'] = int(time.time() * 10000)
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
-        self.mouse.position = (x, y)
+        self.mouse.position = self.window.current_camera.unproject((x, y))
 
     # -- обработка ввода пользователя
     def on_key_press(self, key, key_modifiers):
