@@ -1,0 +1,4278 @@
+{
+  "template_world": {
+    "metadata": {
+      "name": "sany_gani",
+      "width": 20,
+      "height": 20,
+      "export_date": "2026-01-27 18:52:56"
+    },
+    "tiles": [
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_turn_fourth.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_turn_third.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "big_rock.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_water_D.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_water_C.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "tree_C.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_water_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_water_B.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "big_rock.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "berry_bush.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "enemy": {
+            "type": "basic",
+            "health": 100,
+            "damage": 10,
+            "hitbox": [
+              0.1,
+              0.1,
+              0.8,
+              0.8
+            ],
+            "data": {},
+            "texture": "gg1.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png",
+          "item": {
+            "type": "item",
+            "texture": "ppp.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "tree.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_turn_first.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_turn_third.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png",
+          "wall": {
+            "type": "wall",
+            "texture": "big_rock.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "tree_C.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png",
+          "wall": {
+            "type": "wall",
+            "texture": "tree_C.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "berry_bush.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "enemy": {
+            "type": "basic",
+            "health": 100,
+            "damage": 10,
+            "hitbox": [
+              0.1,
+              0.1,
+              0.8,
+              0.8
+            ],
+            "data": {},
+            "texture": "person1.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "enemy": {
+            "type": "basic",
+            "health": 100,
+            "damage": 10,
+            "hitbox": [
+              0.1,
+              0.1,
+              0.8,
+              0.8
+            ],
+            "data": {},
+            "texture": "person1.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "enemy": {
+            "type": "basic",
+            "health": 100,
+            "damage": 10,
+            "hitbox": [
+              0.1,
+              0.1,
+              0.8,
+              0.8
+            ],
+            "data": {},
+            "texture": "gg1.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png",
+          "enemy": {
+            "type": "basic",
+            "health": 100,
+            "damage": 10,
+            "hitbox": [
+              0.1,
+              0.1,
+              0.8,
+              0.8
+            ],
+            "data": {},
+            "texture": "person1.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "enemy": {
+            "type": "basic",
+            "health": 100,
+            "damage": 10,
+            "hitbox": [
+              0.1,
+              0.1,
+              0.8,
+              0.8
+            ],
+            "data": {
+              "dialog": {
+                "1": "Тебе сюда нельзя",
+                "2": "Попытаешься пройти, убью"
+              }
+            },
+            "texture": "gg1.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "item": {
+            "type": "item",
+            "texture": "stick2.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "big_rock.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_turn_fourth.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": 0,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png",
+          "enemy": {
+            "type": "basic",
+            "health": 100,
+            "damage": 10,
+            "hitbox": [
+              0.1,
+              0.1,
+              0.8,
+              0.8
+            ],
+            "data": {},
+            "texture": "gg1.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_turn_second.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "item": {
+            "type": "item",
+            "texture": "sword.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png",
+          "item": {
+            "type": "item",
+            "texture": "shield.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png",
+          "wall": {
+            "type": "wall",
+            "texture": "berry_bush.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "big_rock.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "tree_C.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png",
+          "wall": {
+            "type": "wall",
+            "texture": "house_D.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "tree_C.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_turn_fourth.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": 0
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_turn_second.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "big_rock.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "berry_bush.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "four_grass.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "enemy": {
+            "type": "basic",
+            "health": 100,
+            "damage": 10,
+            "hitbox": [
+              0.1,
+              0.1,
+              0.8,
+              0.8
+            ],
+            "data": {},
+            "texture": "gg1.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_forward.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "big_rock.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png",
+          "wall": {
+            "type": "wall",
+            "texture": "berry_bush.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png",
+          "wall": {
+            "type": "wall",
+            "texture": "tree.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_turn_first.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png",
+          "enemy": {
+            "type": "basic",
+            "health": 100,
+            "damage": 10,
+            "hitbox": [
+              0.1,
+              0.1,
+              0.8,
+              0.8
+            ],
+            "data": {
+              "dialog": {
+                "1": "Салам Серега"
+              }
+            },
+            "texture": "gg1.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_left.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "road_turn_second.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png",
+          "wall": {
+            "type": "wall",
+            "texture": "tree.png"
+          }
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_A.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        }
+      ],
+      [
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        },
+        {
+          "type": "floor",
+          "portals": {
+            "up": null,
+            "down": null,
+            "left": null,
+            "right": null
+          },
+          "texture": "grass_tile1.png"
+        }
+      ]
+    ]
+  }
+}
