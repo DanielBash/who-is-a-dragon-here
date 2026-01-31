@@ -203,7 +203,7 @@ class Enemy:
         self.health = health
         self.shadows = ['figure_1', 'figure_2', 'figure_3', 'figure_4']
         self.speed = 1
-        self.name = 'Слайм'
+        self.name = 'Враг Нападает!'
         self.background = ['parallax_layer_0',
                            'parallax_layer_1']
 
@@ -377,31 +377,31 @@ class Main(arcade.View):
             self.window.set_fullscreen(not self.window.fullscreen)
         elif key == self.conf.KEYS['move_up']:
             x, y = step(self.player.x, self.player.y, 'up')
-            if tile(x, y)['type'] == 'floor':
+            if tile(x, y)['type'] != 'wall':
                 self.player.x, self.player.y = x, y
                 self.player_sprite.walking = 0.5
-            elif tile(x, y)['type'] == 'enemy':
+            if tile(x, y)['type'] == 'enemy':
                 self.load_enemy_fight()
         elif key == self.conf.KEYS['move_down']:
             x, y = step(self.player.x, self.player.y, 'down')
-            if tile(x, y)['type'] == 'floor':
+            if tile(x, y)['type'] != 'wall':
                 self.player.x, self.player.y = x, y
                 self.player_sprite.walking = 0.5
-            elif tile(x, y)['type'] == 'enemy':
+            if tile(x, y)['type'] == 'enemy':
                 self.load_enemy_fight()
         elif key == self.conf.KEYS['move_left']:
             x, y = step(self.player.x, self.player.y, 'left')
-            if tile(x, y)['type'] == 'floor':
+            if tile(x, y)['type'] != 'wall':
                 self.player.x, self.player.y = x, y
                 self.player_sprite.walking = 0.5
-            elif tile(x, y)['type'] == 'enemy':
+            if tile(x, y)['type'] == 'enemy':
                 self.load_enemy_fight()
         elif key == self.conf.KEYS['move_right']:
             x, y = step(self.player.x, self.player.y, 'right')
-            if tile(x, y)['type'] == 'floor':
+            if tile(x, y)['type'] != 'wall':
                 self.player.x, self.player.y = x, y
                 self.player_sprite.walking = 0.5
-            elif tile(x, y)['type'] == 'enemy':
+            if tile(x, y)['type'] == 'enemy':
                 self.load_enemy_fight()
         elif key == self.conf.KEYS['escape']:
             self.go_to_menu()
@@ -498,7 +498,7 @@ class Main(arcade.View):
 
     def load_enemy_fight(self):
         from .battle_arena import Main as play_view
-        self.conf.enemy = Enemy(self.conf.assets, 100)
+        self.conf.enemy = Enemy(tile(self.player.x, self.player.y)['enemy']['texture'].split('.')[0], 100, self.conf.assets)
         arcade.play_sound(self.conf.assets.effect('danger'))
         next_view = play_view(self.conf)
         self.window.show_view(next_view)
