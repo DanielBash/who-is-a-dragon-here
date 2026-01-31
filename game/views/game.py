@@ -143,8 +143,8 @@ class Player:
 
 
 class EnemyAttack:
-    def __init__(self, assets, interval=(0.3, 0.5), texture=('aim',), life_time=(2, 3), damage=(10, 20),
-                 attack_duration=(10, 11), scale=1):
+    def __init__(self, assets, interval=(0.3, 0.5), texture=('aim',), life_time=(5, 10), damage=(10, 20),
+                 attack_duration=(20, 30), scale=1):
         self.interval = interval
         self.texture = texture
         self.life_time = life_time
@@ -437,6 +437,8 @@ class Main(arcade.View):
                 self.load_enemy_fight()
         elif key == self.conf.KEYS['escape']:
             self.go_to_menu()
+        if self.player.x == 43 and self.player.y == 77:
+            self.load_win()
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
         wx, wy, _ = self.cursor_camera.unproject((x, y))
@@ -494,7 +496,7 @@ class Main(arcade.View):
                     tex = self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['wall']['texture']
                     self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['texture'] = tex
                 if 'enemy' in til:
-                    if til['enemy']['texture'] not in ['2026-01-30_21-03-01.png', '2026-01-30_21-02-15.png']:
+                    if til['enemy']['texture'] not in ['2026-01-30_21-03-01.png', '2026-01-30_21-02-15.png', '2026-01-30_21-09-41.png']:
                         self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['type'] = 'wall'
                         tex = self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['enemy']['texture']
                         self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['texture'] = tex
@@ -533,8 +535,13 @@ class Main(arcade.View):
 
     def load_enemy_fight(self):
         from .battle_arena import Main as play_view
-        self.conf.enemy = Enemy(tile(self.player.x, self.player.y)['enemy']['texture'].split('.')[0], 100,
+        self.conf.enemy = Enemy(tile(self.player.x, self.player.y)['enemy']['texture'].split('.')[0], 200,
                                 self.conf.assets)
         arcade.play_sound(self.conf.assets.effect('danger'))
+        next_view = play_view(self.conf)
+        self.window.show_view(next_view)
+
+    def load_win(self):
+        from .game_finish import Main as play_view
         next_view = play_view(self.conf)
         self.window.show_view(next_view)

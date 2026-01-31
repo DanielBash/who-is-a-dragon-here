@@ -51,7 +51,7 @@ class Main(arcade.View):
             texture=title_texture,
         )
         self.exit_button = arcade.gui.UITextureButton(
-            text='Выйти',
+            text='Победа?',
             texture=self.conf.assets.texture('button'),
             texture_hovered=self.conf.assets.texture('button_hovered'),
             scale=0.5,

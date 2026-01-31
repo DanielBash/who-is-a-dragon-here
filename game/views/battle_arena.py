@@ -248,7 +248,7 @@ class Main(arcade.View):
             c += 1
 
         # updating health bars
-        self.enemy_health_bar.value = 0.01 * self.conf.enemy.health
+        self.enemy_health_bar.value = 0.01 * self.conf.enemy.health * 0.5
         self.player_health_bar.value = 0.01 * self.conf.player.health
 
         self.enemy_sprite.scale = self.scaling * 0.2

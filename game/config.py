@@ -17,7 +17,7 @@ import arcade
 import pyglet
 
 import utilities as u
-from views import menu
+from views import intro
 
 
 # === КЛАССЫ БЫСТРОГО ДОСТУПА К РЕСУРСАМ ===
@@ -217,7 +217,7 @@ class Config:
     WINDOW_ICON = 'window_icon'
 
     # сцена запуска
-    LAUNCH_VIEW = menu.Main
+    LAUNCH_VIEW = intro.Main
 
     # пути
     DATA_FILE = Path('saves/save.json')
