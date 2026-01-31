@@ -7,7 +7,6 @@
 import gzip
 import json
 import os
-import random
 import sys
 import time
 from dataclasses import dataclass
@@ -17,8 +16,8 @@ from typing import Optional
 import arcade
 import pyglet
 
-from views import menu, intro, comics, battle_arena, game_finish, game_over_menu
 import utilities as u
+from views import menu
 
 
 # === КЛАССЫ БЫСТРОГО ДОСТУПА К РЕСУРСАМ ===
