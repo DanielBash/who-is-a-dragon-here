@@ -156,6 +156,8 @@ class Main(arcade.View):
     def on_show_view(self):
         self.ui.enable()
         self.conf.music.ensure_playing('menu')
+        self.conf.player = None
+        self.conf.enemy = None
 
         if self.conf.DEBUG:
             self.panel.enable()

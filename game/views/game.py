@@ -2,8 +2,10 @@
  - Основной геймплей"""
 
 # -- импорт модулей
-import math, json, heapq, time
-from math import sin
+import math, heapq
+import random
+import time
+
 import arcade
 import arcade.gui
 import arcade.gui.widgets.buttons
@@ -15,7 +17,32 @@ OPP = {'up': 'down', 'down': 'up', 'left': 'right', 'right': 'left'}
 SIDES = list(DIRS)
 
 W, H = 100, 100
-VW, VH = 11, 11
+VW, VH = 23, 13
+
+
+class PlayerSprite(arcade.Sprite):
+    def __init__(self, walking_anim: list):
+        super().__init__()
+
+        self.walking = 0
+
+        self.walking_animation = walking_anim
+
+        self.local_time = 0
+        self.frame_duration = 0.1
+        self.texture = walking_anim[0]
+
+    def update_animation(self, delta_time: float = 1 / 60, *args, **kwargs) -> None:
+        super().update_animation()
+
+        self.local_time += delta_time
+
+        if self.walking > 0:
+            frame = (self.local_time // self.frame_duration) % len(self.walking_animation)
+            self.texture = self.walking_animation[math.floor(frame)]
+            self.walking -= delta_time
+        else:
+            self.texture = self.walking_animation[0]
 
 
 def tile(x, y):
@@ -103,19 +130,83 @@ default_button_styles = {
 
 
 class Player:
-    def __init__(self, x=0, y=0, inventory=None, health=100):
+    def __init__(self, x=0, y=0, inventory=None, health=100, speed=300, name='Иванушка'):
         if inventory is None:
             inventory = []
         self.x = x
         self.y = y
         self.inventory = inventory
         self.health = health
+        self.speed = speed
+        self.name = name
+
+
+class EnemyAttack:
+    def __init__(self, assets, interval=(0.3, 0.5), texture=('slime_projectile', 'aim'), life_time=(2, 3), damage=(2, 3),
+                 attack_duration=(2, 3), scale=1):
+        self.interval = interval
+        self.texture = texture
+        self.life_time = life_time
+        self.damage = damage
+
+        self.projectiles = arcade.SpriteList()
+        self.assets = assets
+        self.attack_duration = attack_duration
+        self.scale = scale
+
+        self.last_spawn = time.time()
+        self.spawning_in = interval[0] + (interval[1] - interval[0]) * random.random()
+
+    def update_projectile(self, proj, delta_time=1 / 60):
+        proj.center_x += 3 * delta_time
+        proj.center_y += 3 * delta_time
+
+        return proj
+
+    def update_projectiles(self, delta_time=1 / 60):
+        for proj in self.projectiles:
+            self.update_projectile(proj, delta_time)
+            if proj.spawn_time + proj.life_time < time.time():
+                proj.remove_from_sprite_lists()
+
+        if self.last_spawn + self.spawning_in < time.time():
+            self.spawn_projectile()
+            self.last_spawn = time.time()
+            self.spawning_in = self.interval[0] + (self.interval[1] - self.interval[0]) * random.random()
+
+    def spawn_projectile(self):
+        proj = arcade.Sprite(path_or_texture=self.assets.texture(random.choice(self.texture)))
+        proj.spawn_time = time.time()
+        proj.life_time = random.randint(self.life_time[0], self.life_time[1])
+        proj.damage = random.randint(self.damage[0], self.damage[1])
+        proj.scale = 0.1
+
+        self.projectiles.append(proj)
+
+    def draw_projectiles(self):
+        self.projectiles.draw()
+
+    def clear(self):
+        self.projectiles.clear()
+
+    def set_scale(self, scale):
+        for i in self.projectiles:
+            i.scale = scale * self.scale
 
 
 class Enemy:
-    def __init__(self, tex, health):
-        self.texture = 'enemy'
-        self.health = 100
+    def __init__(self, tex, health, assets, attacks=None):
+        if attacks is None:
+            attacks = [EnemyAttack(assets)]
+        self.attacks = attacks
+        self.texture = tex
+        self.health = health
+        self.shadows = ['figure_1', 'figure_2', 'figure_3', 'figure_4']
+        self.speed = 1
+        self.name = 'Слайм'
+        self.background = ['parallax_layer_0',
+                           'parallax_layer_1']
+
 
 
 # -- класс сцены
@@ -127,6 +218,14 @@ class Main(arcade.View):
         self.conf = config
         self.scaling = self.width / 800
         self.conf.assets.font('LeticeaBumsteadCyrillic')
+        self.fix_json()
+
+        if not self.conf.player:
+            self.player = Player(**self.conf.data.data['worlds'][self.conf.current_world]['player'])
+            self.conf.player = self.player
+            self.save_all()
+        else:
+            self.player = self.conf.player
 
         # настройки сцены
         self.background_color = arcade.color.Color(33, 23, 41)
@@ -142,6 +241,7 @@ class Main(arcade.View):
         self.mouse = arcade.Sprite(path_or_texture=self.conf.assets.texture('cursor'), scale=0.1)
 
         self.mouse_sprite_list = arcade.SpriteList()
+        self.enemy_sprite_list = arcade.SpriteList()
         self.mouse_sprite_list.append(self.mouse)
 
         # камеры
@@ -153,11 +253,15 @@ class Main(arcade.View):
         self.tile_sprite_list = arcade.SpriteList()
         self.entities_sprite_list = arcade.SpriteList()
 
-        self.player = Player(0, 0)
-        self.conf.player = self.player
-
         self.prev_player_pos = [self.player.x, self.player.y]
-        self.player_sprite = arcade.Sprite(path_or_texture=self.conf.assets.texture('knight_standing'))
+        self.player_sprite = self.player_sprite = PlayerSprite(
+            walking_anim=[
+                self.conf.assets.texture('knight_standing'),
+                self.conf.assets.texture('knight_walking_down_1'),
+                self.conf.assets.texture('knight_standing'),
+                self.conf.assets.texture('knight_walking_down_2'),
+            ],
+        )
         self.entities_sprite_list.append(self.player_sprite)
 
         self.display_tiles_data = []
@@ -205,6 +309,7 @@ class Main(arcade.View):
     def on_update(self, delta_time):
         self.update_positions()
         self.update_textures()
+        self.entities_sprite_list.update_animation(delta_time)
 
     def update_textures(self):
         def cost_to_alpha(cost, mcost):
@@ -217,7 +322,6 @@ class Main(arcade.View):
         if self.grid_data is None or [self.player.x, self.player.y] != self.prev_player_pos:
             self.grid_data = priority_flood(self.player.x, self.player.y)
             self.prev_player_pos = [self.player.x, self.player.y]
-            self.conf.logger.log(f'Позиция игрока обновилась {self.prev_player_pos}')
 
         mapping = self.grid_data
         for sy in range(VH):
@@ -228,19 +332,27 @@ class Main(arcade.View):
                     self.display_tiles_data[sy][sx].alpha = cost_to_alpha(cost, mcost)
                     if 'texture' in t and '.' in t['texture']:
                         t['texture'] = t['texture'].split('.')[0]
-                    if t['type'] not in ['floor', 'void']:
-                        print('!!')
                     if t['type'] != 'void':
                         if self.display_tiles_data[sy][sx].curr_tex != t['texture']:
-                            self.display_tiles_data[sy][sx].texture = self.conf.assets.texture(t['texture'])
+                            try:
+                                if t['type'] == 'enemy':
+                                    self.display_tiles_data[sy][sx].texture = self.conf.assets.texture(
+                                        t['enemy']['texture'].split('.')[0])
+                                    self.display_tiles_data[sy][sx].curr_tex = t['enemy']['texture'].split('.')[0]
+                                else:
+                                    self.display_tiles_data[sy][sx].texture = self.conf.assets.texture(t['texture'])
+                                    self.display_tiles_data[sy][sx].curr_tex = t['texture']
+                            except Exception as e:
+                                self.display_tiles_data[sy][sx].texture = self.conf.assets.texture('grass_tile1')
+                                self.display_tiles_data[sy][sx].curr_tex = t['texture']
                             self.display_tiles_data[sy][sx].visible = True
-                            self.display_tiles_data[sy][sx].curr_tex = t['texture']
                     else:
                         self.display_tiles_data[sy][sx].visible = False
                         self.display_tiles_data[sy][sx].curr_tex = 'void'
                 else:
                     self.display_tiles_data[sy][sx].visible = False
                     self.display_tiles_data[sy][sx].curr_tex = 'void'
+        self.update_positions()
 
     def update_positions(self):
         center_x, center_y = self.camera.position
@@ -265,16 +377,32 @@ class Main(arcade.View):
             self.window.set_fullscreen(not self.window.fullscreen)
         elif key == self.conf.KEYS['move_up']:
             x, y = step(self.player.x, self.player.y, 'up')
-            self.player.x, self.player.y = x, y
+            if tile(x, y)['type'] == 'floor':
+                self.player.x, self.player.y = x, y
+                self.player_sprite.walking = 0.5
+            elif tile(x, y)['type'] == 'enemy':
+                self.load_enemy_fight()
         elif key == self.conf.KEYS['move_down']:
             x, y = step(self.player.x, self.player.y, 'down')
-            self.player.x, self.player.y = x, y
+            if tile(x, y)['type'] == 'floor':
+                self.player.x, self.player.y = x, y
+                self.player_sprite.walking = 0.5
+            elif tile(x, y)['type'] == 'enemy':
+                self.load_enemy_fight()
         elif key == self.conf.KEYS['move_left']:
             x, y = step(self.player.x, self.player.y, 'left')
-            self.player.x, self.player.y = x, y
+            if tile(x, y)['type'] == 'floor':
+                self.player.x, self.player.y = x, y
+                self.player_sprite.walking = 0.5
+            elif tile(x, y)['type'] == 'enemy':
+                self.load_enemy_fight()
         elif key == self.conf.KEYS['move_right']:
             x, y = step(self.player.x, self.player.y, 'right')
-            self.player.x, self.player.y = x, y
+            if tile(x, y)['type'] == 'floor':
+                self.player.x, self.player.y = x, y
+                self.player_sprite.walking = 0.5
+            elif tile(x, y)['type'] == 'enemy':
+                self.load_enemy_fight()
         elif key == self.conf.KEYS['escape']:
             self.go_to_menu()
 
@@ -299,6 +427,7 @@ class Main(arcade.View):
 
     def on_hide_view(self):
         self.ui.disable()
+        self.save_all()
 
         if self.conf.DEBUG:
             self.panel.disable()
@@ -315,5 +444,61 @@ class Main(arcade.View):
     def go_to_menu(self):
         from .game_menu import Main as play_view
         arcade.play_sound(self.conf.assets.effect('button_click'))
+        next_view = play_view(self.conf)
+        self.window.show_view(next_view)
+
+    def fix_json(self):
+        if 'cleanuped' in self.conf.data.data['worlds'][self.conf.current_world]:
+            return
+        for i in range(len(self.conf.data.data['worlds'][self.conf.current_world]['tiles'])):
+            for j in range(len(self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i])):
+                til = self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]
+                if 'wall' in til and til['wall']['texture'] != '2026-01-30_21-02-15.png':
+                    self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['type'] = 'wall'
+                    tex = self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['wall']['texture']
+                    self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['texture'] = tex
+                if 'enemy' in til:
+                    if til['enemy']['texture'] not in ['2026-01-30_21-03-01.png', '2026-01-30_21-02-15.png']:
+                        self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['type'] = 'wall'
+                        tex = self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['enemy']['texture']
+                        self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['texture'] = tex
+                    else:
+                        self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['type'] = 'enemy'
+
+
+        self.conf.data.data['worlds'][self.conf.current_world]['tiles'] = \
+            self.conf.data.data['worlds'][self.conf.current_world]['tiles'][::-1]
+
+        self.conf.data.data['worlds'][self.conf.current_world]['cleanuped'] = True
+        self.conf.data.data['worlds'][self.conf.current_world]['player'] = {'health': 100,
+                                                                            'x': 11,
+                                                                            'y': 11,
+                                                                            'name': 'Иванушка',
+                                                                            'inventory': [{'type': 'heal', 'heal': 20,
+                                                                                           'texture': 'bottle_20'},
+                                                                                          {'type': 'heal', 'heal': 10,
+                                                                                           'texture': 'bottle_10'},
+                                                                                          {'type': 'heal', 'heal': 10,
+                                                                                           'texture': 'bottle_10'},
+                                                                                          {'type': 'heal', 'heal': 20,
+                                                                                           'texture': 'bottle_10'}
+                                                                                          ],
+                                                                            'speed': 300}
+
+        self.conf.data.save_data()
+
+    def save_all(self):
+        self.conf.data.data['worlds'][self.conf.current_world]['player'] = {'health': self.player.health,
+                                                                            'x': self.player.x,
+                                                                            'y': self.player.y,
+                                                                            'name': 'Иванушка',
+                                                                            'inventory': self.player.inventory,
+                                                                            'speed': self.player.speed}
+        self.conf.data.save_data()
+
+    def load_enemy_fight(self):
+        from .battle_arena import Main as play_view
+        self.conf.enemy = Enemy(self.conf.assets, 100)
+        arcade.play_sound(self.conf.assets.effect('danger'))
         next_view = play_view(self.conf)
         self.window.show_view(next_view)
