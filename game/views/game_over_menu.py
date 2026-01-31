@@ -121,6 +121,7 @@ class Main(arcade.View):
     def continue_button_click(self, event):
         from .game import Main as play_view
         self.conf.player = None
+        self.conf.data.data['worlds'][self.conf.current_world]['player']['health'] = 100
         arcade.play_sound(self.conf.assets.effect('button_click'))
         next_view = play_view(self.conf)
         self.window.show_view(next_view)
