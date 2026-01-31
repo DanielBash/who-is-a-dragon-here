@@ -2,7 +2,7 @@
  - Панель разработчика"""
 
 import arcade
-from arcade.gui import UIWindowLikeMixin, UIWidget, UIBoxLayout, UILabel, UITextArea, UIInputText
+from arcade.gui import UIWindowLikeMixin, UIBoxLayout, UITextArea, UIInputText
 
 
 # -- панель разработчика
@@ -20,7 +20,7 @@ class DebugPanel(arcade.gui.UIManager):
                                                    width=100, height=100)
         self.send_button.on_click = self.execute_script
         self.hide_button = arcade.gui.UIFlatButton(text='Скрыть',
-                                                   width=50, height=20,)
+                                                   width=50, height=20, )
         self.hide_button.on_click = self.toggle_menu
         self.hide_button.center_x = 25
         self.hide_button.center_y = 110

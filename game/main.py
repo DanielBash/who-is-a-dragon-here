@@ -2,11 +2,13 @@
  - Содержит триггеры для запуска приложения
  - Запустить его, чтобы начать"""
 
+import inspect
+from pathlib import Path
+
 # -- импорт модулей
 import arcade
 from arcade import View
-import inspect
-from pathlib import Path
+
 from config import Config as conf
 
 

@@ -1,9 +1,9 @@
 """РЕСУРС: функции для вывода текста, красивого вывода
  - Класс журнала приложения"""
 
-import sys
-import inspect
 import datetime
+import inspect
+import sys
 from pathlib import Path
 
 

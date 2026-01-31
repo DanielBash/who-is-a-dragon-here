@@ -457,6 +457,10 @@ class Main(arcade.View):
         world = self.conf.data.data['worlds'][self.conf.current_world]['tiles']
         W, H = len(world), len(world[0])
 
+        if self.conf.enemy:
+            self.conf.enemy = None
+        self.conf.data.data['worlds'][self.conf.current_world]['tiles'][self.player.x][self.player.y]['type'] = 'floor'
+
     def on_hide_view(self):
         self.ui.disable()
         self.save_all()
