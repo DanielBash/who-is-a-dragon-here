@@ -4,16 +4,14 @@
  - Запуск"""
 
 # -- импорт модулей
-import math
 import time
-from math import sin
+
 import arcade
 import arcade.gui
 import arcade.gui.widgets.buttons
 import arcade.gui.widgets.layout
 from arcade.experimental import Shadertoy
 from arcade.gui import UIStyleBase
-from pyglet.math import Vec2
 
 
 class CustomButtonStyle(UIStyleBase):

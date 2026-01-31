@@ -4,12 +4,11 @@
 # -- импорт модулей
 import math
 import time
-from math import sin
+
 import arcade
-from arcade.experimental import CRTFilter
-from pyglet.math import Vec2
-from .menu import Main as main_menu
 from arcade.experimental import Shadertoy
+
+from .menu import Main as main_menu
 
 
 # -- класс сцены

@@ -2,7 +2,8 @@
  - Основной геймплей"""
 
 # -- импорт модулей
-import math, heapq
+import heapq
+import math
 import random
 import time
 
@@ -157,7 +158,7 @@ class EnemyAttack:
         self.last_spawn = time.time()
         self.spawning_in = interval[0] + (interval[1] - interval[0]) * random.random()
 
-    def update_projectile(self, proj, delta_time=1/60):
+    def update_projectile(self, proj, delta_time=1 / 60):
         angular_speed = 4
         radial_speed = 60
 
@@ -203,17 +204,16 @@ class EnemyAttack:
         for i in self.projectiles:
             i.scale = scale * self.scale
 
+
 class WaveAttack(EnemyAttack):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.interval = (1, 3)
         self.life_time = (3, 5)
 
-
-    def update_projectile(self, proj, delta_time=1/60):
+    def update_projectile(self, proj, delta_time=1 / 60):
         amplitude = 200
         frequency = 4
-
 
         if not hasattr(proj, "base_y"):
             proj.base_y = proj.center_y
@@ -239,7 +239,6 @@ class Enemy:
         self.name = 'Враг Нападает!'
         self.background = ['parallax_layer_0',
                            'parallax_layer_1']
-
 
 
 # -- класс сцены
@@ -498,7 +497,6 @@ class Main(arcade.View):
                     else:
                         self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['type'] = 'enemy'
 
-
         self.conf.data.data['worlds'][self.conf.current_world]['tiles'] = \
             self.conf.data.data['worlds'][self.conf.current_world]['tiles'][::-1]
 
@@ -531,7 +529,8 @@ class Main(arcade.View):
 
     def load_enemy_fight(self):
         from .battle_arena import Main as play_view
-        self.conf.enemy = Enemy(tile(self.player.x, self.player.y)['enemy']['texture'].split('.')[0], 100, self.conf.assets)
+        self.conf.enemy = Enemy(tile(self.player.x, self.player.y)['enemy']['texture'].split('.')[0], 100,
+                                self.conf.assets)
         arcade.play_sound(self.conf.assets.effect('danger'))
         next_view = play_view(self.conf)
         self.window.show_view(next_view)

@@ -2,8 +2,9 @@
  - Основной геймплей"""
 
 # -- импорт модулей
-import math, time
+import math
 import random
+import time
 
 import arcade
 import arcade.gui

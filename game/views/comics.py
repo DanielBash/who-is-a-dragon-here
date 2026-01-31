@@ -2,15 +2,10 @@
  - Демонстрация команды разработчиков"""
 
 # -- импорт модулей
-import math
 import time
-from math import sin
+
 import arcade
 import arcade.gui
-from arcade.experimental import CRTFilter
-from pyglet.math import Vec2
-from .menu import Main as main_menu
-from arcade.experimental import Shadertoy
 
 sub_titles = ['на большой-пребольшой горе жил не менее огромный дракон',
               'а совсем рядом принцесса тосковала в родном замке',

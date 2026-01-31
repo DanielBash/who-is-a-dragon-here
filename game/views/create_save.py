@@ -4,16 +4,14 @@
  - Запуск"""
 
 # -- импорт модулей
-import math
 import time
-from math import sin
+
 import arcade
 import arcade.gui
 import arcade.gui.widgets.buttons
 import arcade.gui.widgets.layout
 from arcade.experimental import Shadertoy
 from arcade.gui import UIStyleBase
-from pyglet.math import Vec2
 
 
 class CustomButtonStyle(UIStyleBase):
@@ -84,7 +82,7 @@ class Main(arcade.View):
                                                        )
         self.choose_difficulty_label = arcade.gui.UILabel('Сложность',
                                                           font_size=18,
-                                                          font_name=("Roboto", "Arial", "calibri"),)
+                                                          font_name=("Roboto", "Arial", "calibri"), )
         self.exit_button.on_click = self.exit_button_click
 
         self.button_column.add(self.title)
