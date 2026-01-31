@@ -429,6 +429,8 @@ class Main(arcade.View):
         item = self.conf.player.inventory[id]
         if item['type'] == 'heal':
             self.conf.player.health += item['heal']
+            if self.conf.player.health > 100:
+                self.conf.player.health = 100
             arcade.play_sound(self.conf.assets.effect('air_punch'))
         del self.conf.player.inventory[id]
         self.update_gui()

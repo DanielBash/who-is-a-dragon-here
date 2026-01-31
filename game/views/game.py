@@ -142,8 +142,8 @@ class Player:
 
 
 class EnemyAttack:
-    def __init__(self, assets, interval=(0.3, 0.5), texture=('slime_projectile', 'aim'), life_time=(2, 3), damage=(2, 3),
-                 attack_duration=(2, 3), scale=1):
+    def __init__(self, assets, interval=(0.3, 0.5), texture=('aim',), life_time=(2, 3), damage=(10, 20),
+                 attack_duration=(10, 11), scale=1):
         self.interval = interval
         self.texture = texture
         self.life_time = life_time
@@ -157,9 +157,19 @@ class EnemyAttack:
         self.last_spawn = time.time()
         self.spawning_in = interval[0] + (interval[1] - interval[0]) * random.random()
 
-    def update_projectile(self, proj, delta_time=1 / 60):
-        proj.center_x += 3 * delta_time
-        proj.center_y += 3 * delta_time
+    def update_projectile(self, proj, delta_time=1/60):
+        angular_speed = 4      # скорость вращения
+        radial_speed = 60      # скорость "разлёта"
+
+        if not hasattr(proj, "angle_"):
+            proj.angle_ = random.uniform(0, 2 * math.pi)
+            proj.radius = 0
+
+        proj.angle += angular_speed * delta_time
+        proj.radius += radial_speed * delta_time
+
+        proj.center_x += math.cos(proj.angle_) * proj.radius * delta_time
+        proj.center_y += math.sin(proj.angle_) * proj.radius * delta_time
 
         return proj
 
@@ -193,11 +203,26 @@ class EnemyAttack:
         for i in self.projectiles:
             i.scale = scale * self.scale
 
+class WaveAttack(EnemyAttack):
+    def update_projectile(self, proj, delta_time=1/60):
+        amplitude = 50
+        frequency = 4
+
+
+        if not hasattr(proj, "base_y"):
+            proj.base_y = proj.center_y
+            proj.time_alive = 0
+
+        proj.time_alive += delta_time
+        proj.center_y = proj.base_y + math.sin(proj.time_alive * frequency) * amplitude
+
+        return proj
+
 
 class Enemy:
     def __init__(self, tex, health, assets, attacks=None):
         if attacks is None:
-            attacks = [EnemyAttack(assets)]
+            attacks = [EnemyAttack(assets), WaveAttack(assets)]
         self.attacks = attacks
         self.texture = tex
         self.health = health
