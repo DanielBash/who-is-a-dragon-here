@@ -158,8 +158,8 @@ class EnemyAttack:
         self.spawning_in = interval[0] + (interval[1] - interval[0]) * random.random()
 
     def update_projectile(self, proj, delta_time=1/60):
-        angular_speed = 4      # скорость вращения
-        radial_speed = 60      # скорость "разлёта"
+        angular_speed = 4
+        radial_speed = 60
 
         if not hasattr(proj, "angle_"):
             proj.angle_ = random.uniform(0, 2 * math.pi)
@@ -204,17 +204,25 @@ class EnemyAttack:
             i.scale = scale * self.scale
 
 class WaveAttack(EnemyAttack):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.interval = (1, 3)
+        self.life_time = (3, 5)
+
+
     def update_projectile(self, proj, delta_time=1/60):
-        amplitude = 50
+        amplitude = 200
         frequency = 4
 
 
         if not hasattr(proj, "base_y"):
             proj.base_y = proj.center_y
+            proj.base_x = proj.center_x
             proj.time_alive = 0
 
         proj.time_alive += delta_time
-        proj.center_y = proj.base_y + math.sin(proj.time_alive * frequency) * amplitude
+        proj.center_y = proj.base_y + math.sin(proj.time_alive * frequency * 0.3) * amplitude
+        proj.center_x = proj.base_x + math.sin(proj.time_alive * frequency * 0.7 + 117) * amplitude * 1.3
 
         return proj
 
