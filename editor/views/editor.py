@@ -451,7 +451,8 @@ class Main(arcade.View):
                         wall_sprite = arcade.Sprite(
                             wall_texture,
                             center_x=x * self.tile_size + self.tile_size // 2,
-                            center_y=y * self.tile_size + self.tile_size // 2
+                            center_y=y * self.tile_size + self.tile_size // 2,
+                            scale=self.tile_size / wall_texture.width
                         )
                     else:
                         wall_sprite = arcade.SpriteSolidColor(
@@ -499,7 +500,8 @@ class Main(arcade.View):
                     item_sprite.item_type = 'item'
                     self.item_sprites.append(item_sprite)
 
-                if tile_data.get('enemy') and tile_type != 'void' and not tile_data.get('wall') and not tile_data.get('item'):
+                if tile_data.get('enemy') and tile_type != 'void' and not tile_data.get('wall') and not tile_data.get(
+                        'item'):
                     enemy_data = tile_data['enemy']
                     enemy_type = enemy_data.get('type', 'basic')
 

@@ -496,7 +496,8 @@ class Main(arcade.View):
                     tex = self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['wall']['texture']
                     self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['texture'] = tex
                 if 'enemy' in til:
-                    if til['enemy']['texture'] not in ['2026-01-30_21-03-01.png', '2026-01-30_21-02-15.png', '2026-01-30_21-09-41.png']:
+                    if til['enemy']['texture'] not in ['2026-01-30_21-03-01.png', '2026-01-30_21-02-15.png',
+                                                       '2026-01-30_21-09-41.png']:
                         self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['type'] = 'wall'
                         tex = self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['enemy']['texture']
                         self.conf.data.data['worlds'][self.conf.current_world]['tiles'][i][j]['texture'] = tex

@@ -15,6 +15,7 @@ from pyglet.math import Vec2
 
 import config
 
+
 # -- класс сцены
 class Main(arcade.View):
     def __init__(self, config):
